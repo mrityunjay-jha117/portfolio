@@ -23,14 +23,14 @@ export default function Game() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white select-none">
       {/* Game Header */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => navigate("/")}
-              className="flex items-center space-x-2 text-white hover:text-red-400 transition-colors"
+              className="flex items-center space-x-2 text-white hover:text-red-400 transition-colors cursor-pointer"
             >
               <svg
                 className="w-5 h-5"
@@ -94,7 +94,7 @@ export default function Game() {
             document.exitFullscreen();
           }
         }}
-        className="fixed bottom-6 right-6 z-50 bg-red-400 hover:bg-red-600 text-white p-3 rounded-lg transition-colors"
+        className="fixed bottom-6 right-6 z-50 bg-red-400 hover:bg-red-600 text-white p-3 rounded-lg transition-colors cursor-pointer"
         title="Toggle Fullscreen"
       >
         <svg

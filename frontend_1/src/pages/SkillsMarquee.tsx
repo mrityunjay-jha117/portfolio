@@ -57,7 +57,7 @@ export default function SkillsMarquee() {
   return (
     <div
       id="skills-section"
-      className="h-full w-full mb-20 overflow-hidden bg-transparent text-white py-8 sm:py-12 lg:py-16"
+      className="h-full w-full mb-20 overflow-hidden bg-transparent text-white py-8 sm:py-12 lg:py-16 select-none"
     >
       {/* Lightweight Background Accents (no heavy blur/pulse) */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
@@ -73,7 +73,7 @@ export default function SkillsMarquee() {
 
         {/* Multiple Rows of Marquee - CSS driven for performance */}
         <div className="space-y-4">
-          <div className="marquee-row marquee-row-slow">
+          <div className="marquee-row marquee-row-slow select-none">
             <div className="marquee-track flex gap-6">
               {duplicatedSkills.map((skill, index) => (
                 <SkillCard
@@ -85,7 +85,7 @@ export default function SkillsMarquee() {
             </div>
           </div>
 
-          <div className="marquee-row marquee-row-reverse">
+          <div className="marquee-row marquee-row-reverse select-none">
             <div className="marquee-track flex gap-6">
               {duplicatedSkills.map((skill, index) => (
                 <SkillCard
@@ -97,7 +97,7 @@ export default function SkillsMarquee() {
             </div>
           </div>
 
-          <div className="marquee-row marquee-row-fast">
+          <div className="marquee-row marquee-row-fast select-none">
             <div className="marquee-track flex gap-6">
               {duplicatedSkills.map((skill, index) => (
                 <SkillCard
@@ -138,8 +138,9 @@ const SkillCard = memo(function SkillCard({
               <img
                 src={skill.icon}
                 alt={skill.name}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain pointer-events-none select-none"
                 loading="lazy"
+                draggable="false"
               />
             </div>
 

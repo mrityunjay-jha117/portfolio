@@ -126,12 +126,12 @@ export default function Portfolio() {
                     src: "icons/sidebar_icons/github2.png",
                   },
                   {
-                    href: "https://leetcode.com/u/Mrityunjay2005/",
+                    href: "https://leetcode.com/u/idk_the_answer/",
                     label: "LeetCode",
                     src: "icons/sidebar_icons/leetcode.png",
                   },
                   {
-                    href: "https://codeforces.com/profile/idk_the_answer",
+                    href: "https://codeforces.com/profile/silent_cartographer",
                     label: "Codeforces",
                     src: "icons/sidebar_icons/codeforces.png",
                   },

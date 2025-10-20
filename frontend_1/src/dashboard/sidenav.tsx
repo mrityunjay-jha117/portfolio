@@ -16,12 +16,12 @@ export default function Sidenav() {
       src: "icons/sidebar_icons/github2.png",
     },
     {
-      href: "https://leetcode.com/u/Mrityunjay2005/",
+      href: "https://leetcode.com/u/idk_the_answer/",
       label: "LeetCode",
       src: "icons/sidebar_icons/leetcode.png",
     },
     {
-      href: "https://codeforces.com/profile/idk_the_answer",
+      href: "https://codeforces.com/profile/silent_cartographer",
       label: "Codeforces",
       src: "icons/sidebar_icons/codeforces.png",
     },
@@ -38,7 +38,7 @@ export default function Sidenav() {
               rel="noopener noreferrer"
               className="flex h-5 w-5 items-center justify-center rounded-lg text-gray-300"
             >
-              <img src={src} alt="NA" className="h-full w-full object-cover"/>
+              <img src={src} alt="NA" className="h-full w-full object-cover" />
             </a>
             {/* Tooltip on hover */}
             <span className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity">

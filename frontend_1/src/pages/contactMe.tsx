@@ -4,7 +4,7 @@ export default function ContactMe() {
   return (
     <div
       id="contact-section"
-      className="h-full mb-20 mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-36 mb-6 sm:mb-10 rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden text-white"
+      className="h-full mb-20 mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-36 mb-6 sm:mb-10 rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden text-white select-none"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12">
         {/* Left side - Contact Info */}
@@ -40,9 +40,9 @@ export default function ContactMe() {
                 href="mailto:mrityunjayjha117@gmail.com"
                 className="text-xs sm:text-base text-gray-300 hover:text-red-400 transition-colors break-all"
               >
-                mrityunjayjha117@gmail.com
+                mrityunjay.jha2005@gmail.com
                 <br />
-                +91-8287299817
+                +91 8287-299-817
               </a>
             </div>
 
@@ -62,7 +62,7 @@ export default function ContactMe() {
                 </svg>
               </div>
               <span className="text-xs sm:text-base text-gray-300">
-                New Delhi, India
+                NEW DELHI, INDIA
               </span>
             </div>
           </div>

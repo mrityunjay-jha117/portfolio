@@ -25,19 +25,20 @@ export default function ProjectCard({
       className="relative w-full h-full rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden"
     >
       <video
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover pointer-events-none select-none"
         src={`/gif/${id + 1}.webm`}
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
+        draggable="false"
       />
 
       <motion.div
         className="absolute inset-0 bg-black"
-        animate={hover ? { opacity: 0.6 } : { opacity: 0 }}
-        transition={{ duration: 0.22 }}
+        animate={hover ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.18 }}
         style={{ pointerEvents: "none", zIndex: 10 }}
       />
 
@@ -45,7 +46,7 @@ export default function ProjectCard({
         {project.githubLink && (
           <button
             onClick={() => window.open(project.githubLink, "_blank")}
-            className="w-10 h-10 rounded-lg bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-lg"
+            className="w-10 h-10 rounded-lg bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center cursor-pointer"
             title="View GitHub Repository"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -61,7 +62,7 @@ export default function ProjectCard({
         {project.liveLink && (
           <button
             onClick={() => window.open(project.liveLink, "_blank")}
-            className="w-10 h-10 rounded-lg bg-red-600 hover:bg-red-700 text-white flex items-center justify-center shadow-lg"
+            className="w-10 h-10 rounded-lg bg-red-600 hover:bg-red-700 text-white flex items-center justify-center cursor-pointer"
             title="View Live Demo"
           >
             <svg
@@ -88,7 +89,7 @@ export default function ProjectCard({
         style={{ pointerEvents: "none" }}
       >
         <motion.h3
-          className="text-white font-bold text-lg sm:text-xl md:text-2xl drop-shadow-lg"
+          className="text-white font-bold text-lg sm:text-xl md:text-2xl"
           animate={hover ? { y: -20 } : { y: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 24 }}
         >

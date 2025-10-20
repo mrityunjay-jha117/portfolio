@@ -2,7 +2,7 @@ export default function About() {
   return (
     <div
       id="about_section"
-      className="h-screen w-full flex flex-col lg:flex-row items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center gap-6 sm:gap-8 lg:gap-10 py-8 sm:py-12"
+      className="h-screen w-full flex flex-col lg:flex-row items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center gap-6 sm:gap-8 lg:gap-10 py-8 sm:py-12 select-none"
     >
       <div className="w-full max-w-md sm:max-w-lg lg:max-w-none lg:w-1/2">
         <div className="flex flex-col justify-center items-center lg:items-start w-full text-white">
@@ -49,7 +49,7 @@ export default function About() {
                 href="https://codeforces.com/profile/mrityunjay-jha117"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-red-400 font-semibold"
+                className="text-white hover:text-red-400 font-semibold cursor-pointer"
               >
                 Codeforces
               </a>
@@ -64,7 +64,7 @@ export default function About() {
                 href="https://leetcode.com/mrityunjay-jha117"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-red-400 font-semibold"
+                className="text-white hover:text-red-400 font-semibold cursor-pointer"
               >
                 LeetCode
               </a>

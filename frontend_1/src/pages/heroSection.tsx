@@ -19,7 +19,7 @@ export default function Landing_Page() {
   return (
     <div
       id="home-section"
-      className="h-screen w-full mx-auto text-white flex flex-row items-center justify-center"
+      className="h-screen w-full mx-auto text-white flex flex-row items-center justify-center select-none"
     >
       {/* Physics layer above hero content but below UI elements */}
       <div className="hidden sm:block absolute inset-0 z-30">
@@ -66,7 +66,7 @@ export default function Landing_Page() {
             variants={item}
             className="text-sm sm:text-base text-blue-400 md:text-lg font-medium sm:mb-8 lg:mb-10 text-center lg:text-left tracking-wider"
           >
-            New Delhi · India
+            New Delhi , INDIA
           </motion.h2>
 
           {/* Buttons with improved layout and sizing + motion hover */}

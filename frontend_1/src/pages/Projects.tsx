@@ -67,7 +67,7 @@ export default function Projects() {
   }, [getSizeClasses, projectsData]);
 
   return (
-    <div className="h-screen w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center py-8 sm:py-12">
+    <div className="h-screen w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center py-8 sm:py-12 select-none">
       <div className="flex items-start justify-start w-full text-left">
         <h1 className="text-3xl lg:text-6xl xl:text-8xl text-blue-500 font-black tracking-tight">
           Projects

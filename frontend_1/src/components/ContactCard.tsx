@@ -55,19 +55,10 @@ export default function ContactCard({
         <div className="flex items-center justify-between pt-2">
           <button
             type="submit"
-            className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow flex items-center gap-3"
+            className="mx-auto py-2 rounded-full w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow flex items-center justify-center cursor-pointer"
           >
-            Send Message
+            SEND MESSAGE
           </button>
-
-          <div className="flex items-center space-x-3">
-            <a className="text-gray-300 hover:text-blue-400" href="#">
-              LinkedIn
-            </a>
-            <a className="text-gray-300 hover:text-blue-400" href="#">
-              GitHub
-            </a>
-          </div>
         </div>
       </form>
     </motion.div>

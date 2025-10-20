@@ -1,7 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        "home-section",
+        "about_section",
+        "projects-section",
+        "skills-section",
+        "blog-section",
+        "contact-section",
+      ];
+
+      // Find which section is currently in view
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Check if section is in viewport (at least 40% visible)
+          if (
+            rect.top <= window.innerHeight * 0.4 &&
+            rect.bottom >= window.innerHeight * 0.3
+          ) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    // Get the scrollable container
+    const scrollContainer = document.querySelector(".overflow-y-auto");
+    if (scrollContainer) {
+      scrollContainer.addEventListener("scroll", handleScroll);
+      handleScroll(); // Check initial position
+
+      return () => scrollContainer.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -18,23 +57,34 @@ export default function Header() {
     { id: "about_section", label: "About" },
     { id: "projects-section", label: "Projects" },
     { id: "blog-section", label: "Blogs" },
+    { id: "skills-section", label: "Skills" },
     { id: "contact-section", label: "Contact" },
   ];
 
   return (
     <>
       {/* Desktop Header */}
-      <header className="hidden md:flex sm:mr-20 w-auto max-w-2xl bg-black/90 backdrop-blur-md border border-gray-800 h-12 lg:h-14 ml-auto items-center justify-center rounded-full px-4 lg:px-8 shadow-2xl z-[110] relative">
+      <header className="hidden md:flex sm:mr-20 w-auto max-w-2xl bg-black/90 backdrop-blur-md border border-gray-800 h-12 lg:h-14 ml-auto items-center justify-center rounded-full px-4 lg:px-8 shadow-2xl z-[110] relative select-none">
         <nav className="w-full">
           <ul className="flex items-center justify-center space-x-4 lg:space-x-8 text-white">
             {navItems.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => scrollToSection(item.id)}
-                  className="relative px-3 py-2 text-sm lg:text-base font-medium hover:text-red-400 transition-all duration-300 group"
+                  className={`relative px-3 py-2 text-sm lg:text-base font-medium transition-all duration-300 group cursor-pointer ${
+                    activeSection === item.id
+                      ? "text-red-400"
+                      : "hover:text-red-400"
+                  }`}
                 >
                   {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 transition-all duration-300 group-hover:w-full"></span>
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-red-400 transition-all duration-300 ${
+                      activeSection === item.id
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  ></span>
                 </button>
               </li>
             ))}
@@ -43,10 +93,10 @@ export default function Header() {
       </header>
 
       {/* Mobile Header */}
-      <header className="md:hidden w-11/12 max-w-sm mx-auto flex items-center justify-center bg-black/90 backdrop-blur-md border border-gray-800 h-12 rounded-full px-4 shadow-2xl z-[110] relative">
+      <header className="md:hidden w-11/12 max-w-sm mx-auto flex items-center justify-center bg-black/90 backdrop-blur-md border border-gray-800 h-12 rounded-full px-4 shadow-2xl z-[110] relative select-none">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="text-white hover:text-red-400 transition-colors p-2 flex items-center gap-2"
+          className="text-white hover:text-red-400 transition-colors p-2 flex items-center gap-2 cursor-pointer"
         >
           <svg
             className={`w-5 h-5 transition-transform duration-300 ${
@@ -78,7 +128,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="md:hidden absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-md border border-gray-800 rounded-2xl shadow-2xl z-[105] overflow-hidden"
+            className="md:hidden absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-md border border-gray-800 rounded-2xl shadow-2xl z-[105] overflow-hidden select-none"
           >
             <nav className="p-4">
               <ul className="space-y-1">
@@ -91,9 +141,19 @@ export default function Header() {
                   >
                     <button
                       onClick={() => scrollToSection(item.id)}
-                      className="w-full text-left px-4 py-3 text-white font-medium hover:text-red-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200 flex items-center space-x-3"
+                      className={`w-full text-left px-4 py-3 font-medium transition-all duration-200 flex items-center space-x-3 rounded-lg cursor-pointer ${
+                        activeSection === item.id
+                          ? "text-red-400 bg-gray-800/50"
+                          : "text-white hover:text-red-400 hover:bg-gray-800/50"
+                      }`}
                     >
-                      <span className="w-2 h-2 bg-red-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                      <span
+                        className={`w-2 h-2 bg-red-400 rounded-full transition-opacity ${
+                          activeSection === item.id
+                            ? "opacity-100"
+                            : "opacity-0"
+                        }`}
+                      ></span>
                       <span>{item.label}</span>
                     </button>
                   </motion.li>
