@@ -33,8 +33,7 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
       {/* Background Image - Full Card */}
       <div className="absolute inset-0">
         <motion.img
-          src="icons/thumbnails/thumb.jpg"
-          alt={blog.title}
+          src="/icons/thumbnails/thumb.jpg"
           className="w-full h-full object-cover"
           animate={{ scale: isHovered ? 1.05 : 1 }}
           transition={{ duration: 0.5 }}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import BlogCard, { type Blog } from "../../components/BlogCard";
+import BlogCard, { type Blog } from "../components/BlogCard";
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);

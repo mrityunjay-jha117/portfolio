@@ -85,29 +85,31 @@ export default function AllBlogsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
-      {/* Back Button */}
-      <motion.button
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-        onClick={() => navigate(-1)}
-        className="max-w-7xl mx-auto mb-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors group"
-      >
-        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-        Back
-      </motion.button>
+      {/* Back Button (left aligned inside the content container) */}
+      <div className="max-w-7xl mx-auto mb-8">
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          onClick={() => navigate(-1)}
+          className="flex gap-2 text-gray-400 hover:text-white transition-colors items-center"
+        >
+          <ArrowLeft className="w-5 h-5 -ml-1 group-hover:-translate-x-1 transition-transform" />
+          <span className="text-sm">Back</span>
+        </motion.button>
+      </div>
 
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-7xl mx-auto text-center mb-16"
+        className="max-w-7xl mx-auto text-left mb-12"
       >
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        <h1 className="text-6xl md:text-8xl font-extrabold mb-3 leading-tight bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
           All Blogs
         </h1>
-        <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+        <p className="text-gray-400 text-base md:text-lg max-w-3xl">
           Explore our complete collection of articles and insights
         </p>
       </motion.div>
@@ -195,23 +197,7 @@ export default function AllBlogsPage() {
             </button>
           </div>
 
-          {/* Quick Jump */}
-          <div className="flex items-center justify-center gap-3">
-            <span className="text-gray-400 text-sm">Jump to page:</span>
-            <input
-              type="number"
-              min="1"
-              max={totalPages}
-              value={currentPage}
-              onChange={(e) => {
-                const page = parseInt(e.target.value);
-                if (page >= 1 && page <= totalPages) {
-                  setCurrentPage(page);
-                }
-              }}
-              className="w-20 px-3 py-2 bg-gray-800/50 border border-gray-700/50 rounded-lg text-center focus:outline-none focus:border-purple-500/50 transition-colors"
-            />
-          </div>
+          {/* Quick jump removed per design */}
         </motion.div>
       </div>
     </div>

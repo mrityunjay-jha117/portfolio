@@ -8,8 +8,6 @@ interface Skill {
 }
 
 export default function SkillsMarquee() {
-  // Removed interactive hover state to improve performance and make animations decorative
-  // Define your skills with categories
   const skills: Skill[] = useMemo(
     () => [
       { name: "React", icon: "icons/1.png", category: "Frontend", level: 95 },
@@ -68,8 +66,8 @@ export default function SkillsMarquee() {
       {/* Horizontal Marquee Container */}
       <div className="relative overflow-hidden py-4">
         {/* Gradient Overlays for fade effect */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 lg:w-150 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 lg:w-150 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none" />
 
         {/* Multiple Rows of Marquee - CSS driven for performance */}
         <div className="space-y-4">

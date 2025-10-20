@@ -5,13 +5,16 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import SignatureDemo from "./components/Signature";
+// import SignatureDemo from "./components/Signature";
 import Portfolio from "./pages/Portfolio";
 import Game from "./pages/Game";
-import BlogPage from "./pages/portfolio_pages/BlogPage";
 import AllBlogsPage from "./pages/portfolio_pages/AllBlogsPage";
 import BlogDetailPage from "./pages/portfolio_pages/BlogDetailPage";
-
+import SignatureDemo from "./components/Signature";
+import Creator from "./creator_page/creator";
+import Authorised_Creator from "./creator_page/authorised";
+import CreateBlog from "./creator_page/crud_pages/create";
+import DeleteBlog from "./creator_page/crud_pages/delete";
 function AppRouter() {
   const location = useLocation();
   // overlay shown initially, and whenever location.key changes
@@ -36,9 +39,12 @@ function AppRouter() {
       <Routes location={location}>
         <Route path="/" element={<Portfolio />} />
         <Route path="/game" element={<Game />} />
-        <Route path="/blogs" element={<BlogPage />} />
         <Route path="/blogs/all" element={<AllBlogsPage />} />
         <Route path="/blogs/:id" element={<BlogDetailPage />} />
+        <Route path="/admin" element={<Creator />} />
+        <Route path="/real_admin" element={<Authorised_Creator />} />
+        <Route path="/real_admin/create" element={<CreateBlog />} />
+        <Route path="/real_admin/delete" element={<DeleteBlog />} />
       </Routes>
     </>
   );

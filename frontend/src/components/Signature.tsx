@@ -132,6 +132,10 @@ export default function SignatureDemo({
         alignItems: "center",
         justifyContent: "center",
         pointerEvents: "auto",
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        MozUserSelect: "none",
+        msUserSelect: "none",
       }}
     >
       <svg
@@ -139,7 +143,13 @@ export default function SignatureDemo({
         viewBox="0 0 1200 200"
         preserveAspectRatio="xMidYMid slice"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ display: "block", width: "100%", height: "100%" }}
+        style={{
+          display: "block",
+          width: "100%",
+          height: "100%",
+          userSelect: "none",
+          WebkitUserSelect: "none",
+        }}
       >
         <defs>
           <clipPath id="reveal">
@@ -161,9 +171,13 @@ export default function SignatureDemo({
               strokeWidth: 5,
               paintOrder: "stroke fill",
               dominantBaseline: "middle",
+              userSelect: "none",
+              WebkitUserSelect: "none",
+              MozUserSelect: "none",
+              msUserSelect: "none",
             }}
           >
-            mrityunjay jha
+            .....Mrityunjay Jha.....
           </text>
         </g>
       </svg>

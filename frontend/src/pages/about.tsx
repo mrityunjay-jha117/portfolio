@@ -46,14 +46,14 @@ export default function About() {
           <div className="flex flex-row gap-6 items-center mt-6">
             <div className="text-sm sm:text-base text-white">
               <a
-                href="https://codeforces.com/profile/mrityunjay-jha117"
+                href="https://codeforces.com/profile/silent_cartographer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-red-400 font-semibold cursor-pointer"
+                className="text-orange-400  font-semibold cursor-pointer"
               >
                 Codeforces
               </a>
-              <span className="text-gray-400 ml-2">
+              <span className=" ml-2 text-emerald-400">
                 Specialist{" "}
                 <span className="text-gray-200 font-medium">1371</span>
               </span>
@@ -61,16 +61,26 @@ export default function About() {
 
             <div className="text-sm sm:text-base text-white">
               <a
-                href="https://leetcode.com/mrityunjay-jha117"
+                href="https://leetcode.com/u/idk_the_answer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-red-400 font-semibold cursor-pointer"
+                className="text-orange-400 font-semibold  cursor-pointer"
               >
                 LeetCode
               </a>
-              <span className="text-gray-400 ml-2">
-                KNIGHT <span className="text-gray-200 font-medium">1860</span>
+              <span className="text-red-500 ml-2">
+                KNIGHT <span className="text-gray-400 font-medium">1860</span>
               </span>
+            </div>
+            <div className="text-sm sm:text-base text-orange-400">
+              <a
+                href="https://codolio.com/profile/silent_cartographer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className=" hover:text-orange-400 font-semibold  cursor-pointer"
+              >
+                Codolio
+              </a>
             </div>
           </div>
         </div>

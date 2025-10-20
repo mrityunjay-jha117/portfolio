@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id           String    @id @default(uuid())
+  title        String
+  // store an array of description segments; each segment is an object { text: string, images: string[] }
+  description  Json
+  createdAt    DateTime  @default(now())
+  tags         String[]  //always when storing put it in lowercase to avoid case sensitivity issues
+  additional_links String[]
+  code_link    String?
+}
+

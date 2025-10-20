@@ -20,14 +20,36 @@ interface RapierPhysicsProps {
 
 // Constants
 const SCENE_MIDDLE = new THREE.Vector3(3, 0, 0);
+// slow idle rotation (radians per second)
+const IDLE_ROTATION_SPEED = 0.0087; // ~0.5 degrees/sec
 const COLOR_PALETTE = [
   0xf87171, // red-400
   0xfb923c, // orange-400
+  0xf87171, // red-400
+  0xfb923c, // orange-400
+  0xf87171, // red-400
+  0xfb923c, // orange-400
+  0xf87171, // red-400
+  0xfb923c, // orange-400
   0xfacc15, // yellow-400
+  0xf87171, // red-400
+  0xfb923c, // orange-400
+  0xfacc15, // yellow-400
+  0xf87171, // red-400
+  0xfb923c, // orange-400
+  0xf87171, // red-400
+  0xfb923c, // orange-400
+  0x4ade80, // green-400
+  0x34d399, // emerald-400
+  0x4ade80, // green-400
+  0x34d399, // emerald-400
   0x4ade80, // green-400
   0x34d399, // emerald-400
   0x60a5fa, // blue-400
   0x818cf8, // indigo-400
+  0xc084fc, // purple-400
+  0xf472b6, // pink-400
+  0x94a3b8, // slate-400
   0xc084fc, // purple-400
   0xf472b6, // pink-400
   0x94a3b8, // slate-400
@@ -42,7 +64,7 @@ const PhysicalBody: React.FC<BodyProps> = ({
   const rigidBodyRef = useRef<RapierRigidBody>(null);
   const meshRef = useRef<THREE.Mesh>(null);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (!rigidBodyRef.current || !meshRef.current) return;
 
     const rigidBody = rigidBodyRef.current;
@@ -59,8 +81,8 @@ const PhysicalBody: React.FC<BodyProps> = ({
 
     // Add mouse repulsion force
     const mouseDistance = pos.distanceTo(mousePosition);
-    const repulsionRadius = 3.0; // Distance at which repulsion starts
-    const repulsionStrength = 30.0; // Strength of repulsion
+    const repulsionRadius = 3; // Distance at which repulsion starts
+    const repulsionStrength = 20; // Strength of repulsion
 
     if (mouseDistance < repulsionRadius) {
       const mouseDir = pos.clone().sub(mousePosition).normalize();
@@ -70,6 +92,44 @@ const PhysicalBody: React.FC<BodyProps> = ({
       rigidBody.addForce(mouseDir.multiplyScalar(repulsionForce), true);
     }
 
+    // Orbit the body slowly around the Y axis that passes through SCENE_MIDDLE.
+    // We compute the relative vector to the scene middle, rotate it around Y by
+    // a small angle, and set the body's translation so it visually orbits even
+    // when physics would otherwise keep it stationary.
+    const angle = delta * IDLE_ROTATION_SPEED; // small per-frame angle
+    const rel = pos.clone().sub(SCENE_MIDDLE);
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+    const rotatedX = rel.x * cos - rel.z * sin;
+    const rotatedZ = rel.x * sin + rel.z * cos;
+    const newPos = new THREE.Vector3(rotatedX, rel.y, rotatedZ).add(
+      SCENE_MIDDLE
+    );
+    try {
+      // Try to set the physics body's translation so the movement is authoritative
+      // in the physics simulation as well.
+      rigidBody.setTranslation({ x: newPos.x, y: newPos.y, z: newPos.z }, true);
+    } catch (e) {
+      // If setTranslation isn't available, fall back to moving the visual mesh.
+      meshRef.current.position.copy(newPos);
+    }
+
+    // Also apply a small tangential force to encourage orbital motion via physics.
+    // Reduce that tangential force as bodies approach the scene middle, but
+    // never drop it to zero so they keep a subtle orbit.
+    const tangential = new THREE.Vector3(-rel.z, 0, rel.x).normalize();
+    const ORBIT_FORCE = 0.8; // base force at larger radii
+    const ORBIT_FALLOFF_RADIUS = 15; // distance at which force reaches full strength
+    const MIN_ORBIT_FACTOR = 0.12; // minimum fraction of force near the center
+    const distFromCenter = rel.length();
+    // compute factor in range [MIN_ORBIT_FACTOR, 1]
+    const factor = Math.max(
+      MIN_ORBIT_FACTOR,
+      Math.min(1, distFromCenter / ORBIT_FALLOFF_RADIUS)
+    );
+    const scaledForce = ORBIT_FORCE * factor;
+    rigidBody.addForce(tangential.clone().multiplyScalar(scaledForce), true);
+
     // Update mesh rotation
     const rotation = rigidBody.rotation();
     const quaternion = new THREE.Quaternion(
@@ -78,7 +138,33 @@ const PhysicalBody: React.FC<BodyProps> = ({
       rotation.z,
       rotation.w
     );
-    meshRef.current.setRotationFromQuaternion(quaternion);
+    // Apply a slow idle rotation around the Y axis on top of physics rotation
+    // so the balls slowly spin even when they are otherwise idle or stuck.
+    const idleQuat = new THREE.Quaternion().setFromAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      delta * IDLE_ROTATION_SPEED
+    );
+
+    // Compose the physics quaternion with the idle rotation
+    const composed = quaternion.clone().multiply(idleQuat);
+
+    // Update the physics body's rotation so the change persists even when bodies
+    // are in contact or sleeping.
+    try {
+      rigidBody.setRotation(
+        { x: composed.x, y: composed.y, z: composed.z, w: composed.w },
+        true
+      );
+    } catch (e) {
+      // If the RigidBody API doesn't support setRotation in this environment,
+      // fall back to rotating the mesh only.
+      meshRef.current.setRotationFromQuaternion(quaternion);
+      meshRef.current.rotateY(delta * IDLE_ROTATION_SPEED);
+      return;
+    }
+
+    // Reflect the new rotation on the visual mesh
+    meshRef.current.setRotationFromQuaternion(composed);
   });
 
   return (
@@ -91,8 +177,6 @@ const PhysicalBody: React.FC<BodyProps> = ({
     >
       <mesh ref={meshRef}>
         <sphereGeometry args={[0.3, 32, 32]} />
-        {/* <boxGeometry args={[1, 1, 1]} /> */}
-
         <meshLambertMaterial color={color} />
       </mesh>
     </RigidBody>
@@ -174,14 +258,14 @@ export const PhysicsScene: React.FC = () => {
   // Generate random bodies
   const bodies = useMemo(() => {
     const bodyArray = [];
-    const ballCount = 30;
-    const range = 40;
+    const ballCount = 35;
+    const range = 30;
 
     for (let i = 0; i < ballCount; i++) {
       const position: [number, number, number] = [
-        Math.random() * range - range * 0.25,
-        Math.random() * range - range * 0.25,
-        Math.random() * range - range * 0.25,
+        Math.random() * range - range * 0.5,
+        Math.random() * range - range * 0.5,
+        Math.random() * range - range * 0.5,
       ];
 
       const color =
@@ -217,7 +301,7 @@ export const PhysicsScene: React.FC = () => {
 
       {/* Mouse ball */}
       <MouseBall mousePosition={mousePosition} />
-      <directionalLight position={[-1, 0, 2]} intensity={1} />
+      <directionalLight position={[-1, 0, 2]} intensity={2} />
       {/* Better lighting for 3D appearance */}
       <ambientLight intensity={1} />
     </Physics>

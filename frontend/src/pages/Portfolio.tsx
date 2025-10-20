@@ -7,7 +7,7 @@ import Third from "./about";
 import Sixth from "./contactMe";
 import Header from "../dashboard/header";
 import Sidenav from "../dashboard/sidenav";
-import BlogPage from "./portfolio_pages/BlogPage";
+import BlogPage from "./BlogPage";
 
 import SkillsMarquee from "./SkillsMarquee";
 export default function Portfolio() {
