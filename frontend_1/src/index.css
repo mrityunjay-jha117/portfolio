@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* Hide scrollbar - cross-browser */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Marquee animations - lightweight and GPU accelerated */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.marquee-row {
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.marquee-row-slow .marquee-track {
+  animation: marquee-left 30s linear infinite;
+}
+.marquee-row-fast .marquee-track {
+  animation: marquee-left 22s linear infinite;
+}
+.marquee-row-reverse .marquee-track {
+  animation: marquee-right 30s linear infinite;
+}
+
+/* Duplicate content technique: ensure content repeats seamlessly by placing two copies inline */
+.marquee-track > * {
+  flex: 0 0 auto;
+}
+
+@keyframes slow-float {
+  0% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-6px) translateZ(0);
+  }
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+.animate-slow-float {
+  animation: slow-float 6s ease-in-out infinite;
+}
