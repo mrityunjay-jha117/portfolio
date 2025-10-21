@@ -5,7 +5,6 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-// import SignatureDemo from "./components/Signature";
 import Portfolio from "./pages/Portfolio";
 import Game from "./pages/Game";
 import AllBlogsPage from "./pages/portfolio_pages/AllBlogsPage";
