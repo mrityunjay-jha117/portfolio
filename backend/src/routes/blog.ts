@@ -1,23 +1,33 @@
 import { Hono } from "hono";
 import { z } from "zod";
-import { PrismaClient } from "@prisma/client";
-// @ts-ignore: some environments/types may not expose the typed export
-import accelerate from "@prisma/extension-accelerate";
+import { PrismaClient } from "@prisma/client/edge";
+import { withAccelerate } from "@prisma/extension-accelerate";
 
-// Use Prisma Accelerate extension to boot on the database where supported
-const prisma = new PrismaClient().$extends((accelerate as any)());
+const blogRouter = new Hono<{
+  Bindings: {
+    DATABASE_URL: string;
+    SECRET_CODE: string;
+  };
+}>();
 
-const blogRouter = new Hono();
-
-function authRequired(c: any) {
+// helper that returns boolean if request is admin-authorized
+function isAdmin(c: any) {
   const provided = c.req.header("x-admin-password");
-  const expected = c.env.ADMIN_PASSWORD;
-  if (!expected || provided !== expected) return false;
-  return true;
+  const expected = c.env.SECRET_CODE;
+  return !!expected && provided === expected;
 }
+
+// Hono middleware that enforces admin header
+const requireAdmin = async (c: any, next: any) => {
+  if (!isAdmin(c)) return c.json({ error: "unauthorized" }, 401);
+  await next();
+};
 
 // GET / -> list blogs (paginated)
 blogRouter.get("/", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
   const q = c.req.query();
   const page = Math.max(1, Number(q.page) || 1);
   const limit = Math.min(50, Math.max(1, Number(q.limit) || 10));
@@ -31,20 +41,16 @@ blogRouter.get("/", async (c) => {
     }),
     prisma.blog.count(),
   ]);
-
   return c.json({ items, total, page, limit });
 });
 
-// GET /auth -> verify admin password (header)
-blogRouter.get("/auth", async (c) => {
-  const ok = authRequired(c);
-  return c.json({ ok });
-});
-
-// NOTE: admin listing removed. Admins may create/update/delete by id only.
+// NOTE: admin listing removed. Admins may create/delete by id only.
 
 // GET /:id -> get a blog by id
 blogRouter.get("/:id", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
   const id = c.req.param("id");
   const item = await prisma.blog.findUnique({ where: { id } });
   if (!item) return c.json({ error: "Not found" }, 404);
@@ -52,8 +58,10 @@ blogRouter.get("/:id", async (c) => {
 });
 
 // POST / -> create (protected)
-blogRouter.post("/", async (c) => {
-  if (!authRequired(c)) return c.json({ error: "unauthorized" }, 401);
+blogRouter.post("/", requireAdmin, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
   const body = await c.req.json();
 
   const segment = z.object({
@@ -84,21 +92,11 @@ blogRouter.post("/", async (c) => {
   return c.json(created, 201);
 });
 
-// PUT /:id -> update (protected)
-blogRouter.put("/:id", async (c) => {
-  if (!authRequired(c)) return c.json({ error: "unauthorized" }, 401);
-  const id = c.req.param("id");
-  const body = await c.req.json();
-  const updated = await prisma.blog.update({
-    where: { id },
-    data: body as any,
-  });
-  return c.json(updated);
-});
-
 // DELETE /:id -> delete (protected)
-blogRouter.delete("/:id", async (c) => {
-  if (!authRequired(c)) return c.json({ error: "unauthorized" }, 401);
+blogRouter.delete("/:id", requireAdmin, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
   const id = c.req.param("id");
   await prisma.blog.delete({ where: { id } });
   return c.json({ ok: true });

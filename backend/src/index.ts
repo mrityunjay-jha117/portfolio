@@ -1,7 +1,4 @@
-// src/index.ts
-
 import { Hono } from "hono";
-
 import blogRouter from "./routes/blog";
 import imageRouter from "./routes/image";
 

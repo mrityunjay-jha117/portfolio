@@ -1,13 +1,11 @@
 {
-  "name": "backend",
+  "name": "backend_for_portfolio",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
-    "@google/genai": "^1.4.0",
-    "@mrityunjay__jha117/reload_common": "^1.0.3",
     "@prisma/client": "^6.17.1",
     "@prisma/extension-accelerate": "^2.0.2",
     "crypto": "^1.0.1",
@@ -15,6 +13,7 @@
     "prisma": "^6.17.1"
   },
   "devDependencies": {
+    "@types/node": "^24.9.1",
     "wrangler": "^4.4.0"
   }
 }
