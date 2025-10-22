@@ -89,10 +89,9 @@ export default function About() {
       {/* Right side - Placeholder for 3D model/image */}
       <div className="hidden sm:block w-full lg:w-1/2 flex items-center justify-center mt-6 lg:mt-0">
         <div className="text-center p-8 sm:p-12 bg-gray-800 rounded-2xl border border-gray-700">
-          <h1 className="font-black text-blue-500 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl opacity-50">
-            3D Model
+          <h1 className="font-black text-blue-500   md:text-5xl lg:text-6xl xl:text-7xl opacity-50">
+            PRESS ' W '
           </h1>
-          <p className="text-gray-400 mt-2 text-sm sm:text-base">Coming Soon</p>
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ function AppRouter() {
 
   return (
     <>
+      
       {showOverlay && (
         // key by location.key so it remounts on each navigation
         <SignatureDemo

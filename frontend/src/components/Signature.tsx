@@ -136,6 +136,7 @@ export default function SignatureDemo({
         WebkitUserSelect: "none",
         MozUserSelect: "none",
         msUserSelect: "none",
+        padding: "40px",
       }}
     >
       <svg
@@ -168,7 +169,7 @@ export default function SignatureDemo({
             style={{
               fill: "#fff",
               stroke: "#fff",
-              strokeWidth: 5,
+              strokeWidth:4,
               paintOrder: "stroke fill",
               dominantBaseline: "middle",
               userSelect: "none",

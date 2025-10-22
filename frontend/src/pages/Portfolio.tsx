@@ -8,7 +8,7 @@ import Sixth from "./contactMe";
 import Header from "../dashboard/header";
 import Sidenav from "../dashboard/sidenav";
 import BlogPage from "./BlogPage";
-
+import Final from "@/pages/components/final";
 import SkillsMarquee from "./SkillsMarquee";
 export default function Portfolio() {
   const navigate = useNavigate();
@@ -250,12 +250,15 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
+          className="relative snap-start min-h-screen"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
+          <div className="absolute z-10 h-screen w-[100%]">
+            <Final />
+          </div>
           <Third />
         </motion.div>
 
