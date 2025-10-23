@@ -1,4 +1,4 @@
-import RapierPhysics from "./components/rapier";
+import RapierPhysics from "./components/Three js components/ball animation/rapier";
 import { motion } from "framer-motion";
 
 export default function Landing_Page() {

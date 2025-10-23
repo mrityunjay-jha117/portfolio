@@ -8,8 +8,9 @@ import Sixth from "./contactMe";
 import Header from "../dashboard/header";
 import Sidenav from "../dashboard/sidenav";
 import BlogPage from "./BlogPage";
-import Final from "@/pages/components/final";
 import SkillsMarquee from "./SkillsMarquee";
+import PortfolioSection from "./components/Three js components/car_model_animation/canvas_setter";
+import AnimatedModel from "./components/Three js components/car_model_animation/animated_model";
 export default function Portfolio() {
   const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -48,7 +49,7 @@ export default function Portfolio() {
   return (
     <div className="relative bg-gray-900 w-full h-screen overflow-x-hidden scrollbar-hide overflow-y-auto snap-y snap-mandatory scroll-smooth">
       {/* Desktop Sidenav - Hidden on mobile */}
-   
+
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
@@ -257,8 +258,10 @@ export default function Portfolio() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
-          <div className="absolute z-10 h-screen w-[100%]">
-            <Final />
+          <div className="absolute z-10 h-screen w-full">
+            <PortfolioSection
+              Scene={<AnimatedModel gltfPath="/seedhi_gaadi.glb" />}
+            />
           </div>
           <Third />
         </motion.div>

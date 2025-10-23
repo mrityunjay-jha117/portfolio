@@ -10,7 +10,7 @@ type AnimatedModelProps = {
 
 export default function AnimatedModel({
   gltfPath,
-  scale = 1,
+  scale = 1.8,
 }: AnimatedModelProps) {
   const groupRef = useRef<THREE.Group | null>(null);
   const { scene, animations } = useGLTF(gltfPath) as any;
@@ -143,11 +143,14 @@ export default function AnimatedModel({
     const group = groupRef.current;
     if (!group) return;
 
-    // Parameters
-    const maxSpeed = 4.0;
-    const turnSpeed = 1.6;
-    const maxSteerAngle = 0.6;
-    const rearSteerFactor = 0.3;
+    // skip heavy work when tab is not visible
+    if (typeof document !== "undefined" && document.hidden) return;
+
+    // Parameters (module-level constants would be better; kept here for readability)
+    const maxSpeed = 6.0;
+    const turnSpeed = 1.2;
+    const maxSteerAngle = 0.3;
+    const rearSteerFactor = 0.2;
 
     // Inputs
     const f = input.current.forward; // -1..1
@@ -158,13 +161,12 @@ export default function AnimatedModel({
     const steerList = steerRefs.current;
     for (let i = 0; i < steerList.length; i++) {
       const ref = steerList[i];
-      const factor = i < 2 ? 1 : rearSteerFactor; // FL,FR = 1, BL,BR = rearSteerFactor
-      if (ref) {
-        ref.rotation.y = THREE.MathUtils.lerp(
-          ref.rotation.y,
-          maxSteerAngle * t * factor,
-          0.2
-        );
+      const factor = i < 2 ? 1 : rearSteerFactor;
+      if (!ref) continue;
+      const target = maxSteerAngle * t * factor;
+      // avoid tiny writes when already close to target
+      if (Math.abs(ref.rotation.y - target) > 1e-4) {
+        ref.rotation.y = THREE.MathUtils.lerp(ref.rotation.y, target, 0.2);
       }
     }
 
@@ -181,7 +183,7 @@ export default function AnimatedModel({
     }
 
     // --- 3. Compute move direction ---
-    // reuse moveDirRef and tmpVec to avoid allocations
+    // reuse moveDirRef and tmpVec to avoid allocations and normalize once
     const forwardLocalX = tmpVec.current.set(1, 0, 0);
     const moveDir = moveDirRef.current;
     moveDir.set(0, 0, 0);
@@ -190,14 +192,10 @@ export default function AnimatedModel({
       const s = steerList2[i];
       if (!s) continue;
       s.getWorldQuaternion(tmpQuat.current);
-      // apply quaternion into tmpVec2 then add to moveDir
-      tmpVec2.current
-        .copy(forwardLocalX)
-        .applyQuaternion(tmpQuat.current)
-        .normalize();
+      tmpVec2.current.copy(forwardLocalX).applyQuaternion(tmpQuat.current);
       moveDir.add(tmpVec2.current);
     }
-    moveDir.normalize();
+    if (moveDir.lengthSq() > 1e-8) moveDir.normalize();
 
     // --- 4. Correct reverse movement ---
     // When reversing, invert rotation influence
@@ -215,7 +213,8 @@ export default function AnimatedModel({
     }
 
     // --- 6. Spin wheels ---
-    const spinMultiplier = 6 * (input.current.boost ? 4 : 1); // boost increases spin too
+    const boostMul = input.current.boost ? 4 : 1;
+    const spinMultiplier = 6 * boostMul; // base multiplier
     let spin = 0;
     if (f !== 0) spin = f * (0.6 + 0.4 * speedFactor) * spinMultiplier;
     else if (Math.abs(speedRef.current) > 0.0001)
@@ -224,10 +223,12 @@ export default function AnimatedModel({
         Math.abs(speedRef.current) *
         spinMultiplier;
 
-    const wlist = wheelsRef.current;
-    for (let i = 0; i < wlist.length; i++) {
-      const w = wlist[i];
-      if (w && w.rotation) w.rotation.z -= spin * delta;
+    if (spin !== 0) {
+      const wlist = wheelsRef.current;
+      for (let i = 0; i < wlist.length; i++) {
+        const w = wlist[i];
+        if (w && w.rotation) w.rotation.z -= spin * delta;
+      }
     }
   });
 

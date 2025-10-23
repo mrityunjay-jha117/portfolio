@@ -258,7 +258,7 @@ export const PhysicsScene: React.FC = () => {
   // Generate random bodies
   const bodies = useMemo(() => {
     const bodyArray = [];
-    const ballCount = 35;
+    const ballCount = 25;
     const range = 30;
 
     for (let i = 0; i < ballCount; i++) {
