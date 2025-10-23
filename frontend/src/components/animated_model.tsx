@@ -26,7 +26,7 @@ export default function AnimatedModel({
   const [wheels, setWheels] = useState<THREE.Mesh[]>([]);
 
   // control state
-  const input = useRef({ forward: 0, turn: 0 }); // forward: -1..1, turn: -1..1
+  const input = useRef({ forward: 0, turn: 0, boost: 0 }); // forward: -1..1, turn: -1..1, boost: 0/1
 
   // movement state
   const speedRef = useRef(0);
@@ -112,11 +112,13 @@ export default function AnimatedModel({
       if (k === "s") input.current.forward = -1;
       if (k === "a") input.current.turn = 1;
       if (k === "d") input.current.turn = -1;
+      if (e.key === "Shift") input.current.boost = 1;
     };
     const up = (e: KeyboardEvent) => {
       const k = e.key.toLowerCase();
       if (k === "w" || k === "s") input.current.forward = 0;
       if (k === "a" || k === "d") input.current.turn = 0;
+      if (e.key === "Shift") input.current.boost = 0;
     };
     window.addEventListener("keydown", down);
     window.addEventListener("keyup", up);
@@ -130,98 +132,96 @@ export default function AnimatedModel({
     const group = groupRef.current;
     if (!group) return;
 
-    // parameters (tweak to taste)
-    const maxSpeed = 4.0; // units/sec
-    const accel = 6.0; // units/sec^2
+    // Parameters
+    const maxSpeed = 4.0;
+    const accel = 6.0;
     const brake = 8.0;
-    const turnSpeed = 1.6; // rad/sec for heading
-    const maxSteerAngle = 0.6; // radians for wheel parents
+    const turnSpeed = 1.6;
+    const maxSteerAngle = 0.6;
+    const rearSteerFactor = 0.3;
 
-    // inputs
+    // Inputs
     const f = input.current.forward; // -1..1
     const t = input.current.turn; // -1..1
 
-    // apply steering to front steer parents (visual)
-    if (steerFL.current)
-      steerFL.current.rotation.y = THREE.MathUtils.lerp(
-        steerFL.current.rotation.y,
-        maxSteerAngle * t,
-        0.2
-      );
-    if (steerFR.current)
-      steerFR.current.rotation.y = THREE.MathUtils.lerp(
-        steerFR.current.rotation.y,
-        maxSteerAngle * t,
-        0.2
-      );
+    // --- 1. Steering ---
+    const steerPairs = [
+      { ref: steerFL, factor: 1 },
+      { ref: steerFR, factor: 1 },
+      { ref: steerBL, factor: rearSteerFactor },
+      { ref: steerBR, factor: rearSteerFactor },
+    ];
+    steerPairs.forEach(({ ref, factor }) => {
+      if (ref.current) {
+        ref.current.rotation.y = THREE.MathUtils.lerp(
+          ref.current.rotation.y,
+          maxSteerAngle * t * factor,
+          0.2
+        );
+      }
+    });
 
-    // heading change: rotate the whole group (yaw) only when moving (or when forward input exists)
-    const speedFactor = Math.min(1, Math.abs(speedRef.current) / maxSpeed);
-    if (Math.abs(speedRef.current) > 0.001 || f !== 0) {
-      group.rotation.y += t * turnSpeed * (0.4 + 0.6 * speedFactor) * delta;
-    }
-
-    // update speed toward target
-    const target = f * maxSpeed;
+    // --- 2. Update speed ---
+    const boostFactor = input.current.boost ? 4 : 1; // Shift multiplies speed by 4
+    const targetSpeed = f * maxSpeed * boostFactor;
     if (f !== 0) {
       const dv =
-        Math.sign(target - speedRef.current) *
-        Math.min(Math.abs(target - speedRef.current), accel * delta);
+        Math.sign(targetSpeed - speedRef.current) *
+        Math.min(Math.abs(targetSpeed - speedRef.current), accel * delta);
       speedRef.current += dv;
     } else {
-      // natural braking
       const dec =
         Math.sign(speedRef.current) *
         Math.min(Math.abs(speedRef.current), brake * delta);
       speedRef.current -= dec;
     }
 
-    // move along direction defined by front steer parents if available
-    let moveDir: THREE.Vector3;
-    // Use model's +X as forward (adjusted from -Z). This matches how the GLTF
-    // was authored where the vehicle faces the +X axis.
+    // --- 3. Compute move direction ---
     const forwardLocal = tmpVec.current.set(1, 0, 0);
-    if (steerFL.current && steerFR.current) {
-      // get world forward for each steer parent
-      steerFL.current.getWorldQuaternion(tmpQuat.current);
-      const f1 = forwardLocal
-        .clone()
-        .applyQuaternion(tmpQuat.current)
-        .normalize();
-      steerFR.current.getWorldQuaternion(tmpQuat.current);
-      const f2 = forwardLocal
-        .clone()
-        .applyQuaternion(tmpQuat.current)
-        .normalize();
-      moveDir = f1.add(f2).multiplyScalar(0.5).normalize();
-    } else {
-      // fallback to group's forward
-      moveDir = forwardLocal.applyQuaternion(group.quaternion).normalize();
+    const wheelRefs = [steerFL, steerFR, steerBL, steerBR].filter(
+      Boolean
+    ) as (typeof steerFL)[];
+    const moveDir = new THREE.Vector3();
+    wheelRefs.forEach((s) => {
+      if (s.current) {
+        s.current.getWorldQuaternion(tmpQuat.current);
+        moveDir.add(
+          forwardLocal.clone().applyQuaternion(tmpQuat.current).normalize()
+        );
+      }
+    });
+    moveDir.normalize();
+
+    // --- 4. Correct reverse movement ---
+    // When reversing, invert rotation influence
+    const speedFactor = Math.min(1, Math.abs(speedRef.current) / maxSpeed);
+    const yawDirection = speedRef.current >= 0 ? 1 : -1; // forward vs reverse
+    if (Math.abs(speedRef.current) > 0.001 || f !== 0) {
+      group.rotation.y +=
+        t * turnSpeed * (0.4 + 0.6 * speedFactor) * delta * yawDirection;
     }
 
-    // Only move when there's some speed
+    // --- 5. Move car ---
     if (Math.abs(speedRef.current) > 0.0001) {
-      group.position.addScaledVector(moveDir, speedRef.current * delta);
+      // reverse the movement vector if speed is negative
+      const moveVector = moveDir
+        .clone()
+        .multiplyScalar(speedRef.current * delta);
+      group.position.add(moveVector);
     }
 
-    // spin wheels: if W/S input is pressed, spin immediately on X axis
-    // direction follows input; otherwise spin according to actual speed
-    const spinMultiplier = 6;
-    const inputF = input.current.forward; // -1,0,1
-    const speedFrac = Math.min(1, Math.abs(speedRef.current) / maxSpeed);
+    // --- 6. Spin wheels ---
+    const spinMultiplier = 6 * (input.current.boost ? 4 : 1); // boost increases spin too
     let spin = 0;
-    if (inputF !== 0) {
-      const base = 0.6 + 0.4 * speedFrac; // base spin when input pressed
-      spin = inputF * base * spinMultiplier;
-    } else if (Math.abs(speedRef.current) > 0.0001) {
+    if (f !== 0) spin = f * (0.6 + 0.4 * speedFactor) * spinMultiplier;
+    else if (Math.abs(speedRef.current) > 0.0001)
       spin =
         Math.sign(speedRef.current) *
         Math.abs(speedRef.current) *
         spinMultiplier;
-    }
 
     wheels.forEach((w) => {
-      if (w && w.rotation) w.rotation.z -= spin * delta; // rotate on X axis
+      if (w && w.rotation) w.rotation.z -= spin * delta;
     });
   });
 

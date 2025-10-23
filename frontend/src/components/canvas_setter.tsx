@@ -13,18 +13,18 @@ type PortfolioSectionProps = {
 
 export default function PortfolioSection({
   Scene,
-  cameraPosition = [10, 0, 5],
+  cameraPosition = [12, 0, 5],
   fov = 40,
-  lightIntensity = 2,
+  lightIntensity = 1,
 }: PortfolioSectionProps) {
   
   return (
     <div className="h-full w-full">
       <Canvas camera={{ position: cameraPosition, fov }}>
         <directionalLight position={[10, 0, 0]} intensity={lightIntensity} />
-        <directionalLight position={[-10, 0, 0]} intensity={lightIntensity} />
         <ambientLight intensity={2.5} />
         <OrbitControls enableZoom enablePan />
+        
         {Scene}
       </Canvas>
     </div>
