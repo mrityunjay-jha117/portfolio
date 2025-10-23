@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -21,9 +21,11 @@ export default function AnimatedModel({
   const steerFR = useRef<THREE.Object3D | null>(null);
   const steerBL = useRef<THREE.Object3D | null>(null);
   const steerBR = useRef<THREE.Object3D | null>(null);
+  // cached arrays to avoid recreating per frame
+  const steerRefs = useRef<Array<THREE.Object3D | null>>([]);
 
-  // wheel meshes
-  const [wheels, setWheels] = useState<THREE.Mesh[]>([]);
+  // wheel meshes (we store in a ref for fast access and to avoid re-renders)
+  const wheelsRef = useRef<THREE.Mesh[]>([]);
 
   // control state
   const input = useRef({ forward: 0, turn: 0, boost: 0 }); // forward: -1..1, turn: -1..1, boost: 0/1
@@ -32,6 +34,8 @@ export default function AnimatedModel({
   const speedRef = useRef(0);
   const tmpVec = useRef(new THREE.Vector3());
   const tmpQuat = useRef(new THREE.Quaternion());
+  const moveDirRef = useRef(new THREE.Vector3());
+  const tmpVec2 = useRef(new THREE.Vector3());
 
   useEffect(() => {
     // gather nodes from scene by names described in your model
@@ -95,7 +99,14 @@ export default function AnimatedModel({
       if (m && !unique.includes(m)) unique.push(m);
     });
 
-    setWheels(unique);
+    // cache refs for fast per-frame access (no setState to avoid re-renders)
+    wheelsRef.current = unique;
+    steerRefs.current = [
+      steerFL.current,
+      steerFR.current,
+      steerBL.current,
+      steerBR.current,
+    ];
 
     // play first animation if present
     if (actions && animations && animations.length > 0) {
@@ -134,8 +145,6 @@ export default function AnimatedModel({
 
     // Parameters
     const maxSpeed = 4.0;
-    const accel = 6.0;
-    const brake = 8.0;
     const turnSpeed = 1.6;
     const maxSteerAngle = 0.6;
     const rearSteerFactor = 0.3;
@@ -145,51 +154,49 @@ export default function AnimatedModel({
     const t = input.current.turn; // -1..1
 
     // --- 1. Steering ---
-    const steerPairs = [
-      { ref: steerFL, factor: 1 },
-      { ref: steerFR, factor: 1 },
-      { ref: steerBL, factor: rearSteerFactor },
-      { ref: steerBR, factor: rearSteerFactor },
-    ];
-    steerPairs.forEach(({ ref, factor }) => {
-      if (ref.current) {
-        ref.current.rotation.y = THREE.MathUtils.lerp(
-          ref.current.rotation.y,
+    // reuse cached steerRefs to avoid allocating an array each frame
+    const steerList = steerRefs.current;
+    for (let i = 0; i < steerList.length; i++) {
+      const ref = steerList[i];
+      const factor = i < 2 ? 1 : rearSteerFactor; // FL,FR = 1, BL,BR = rearSteerFactor
+      if (ref) {
+        ref.rotation.y = THREE.MathUtils.lerp(
+          ref.rotation.y,
           maxSteerAngle * t * factor,
           0.2
         );
       }
-    });
+    }
 
     // --- 2. Update speed ---
+    // Instantaneous speed: no acceleration/braking smoothing. Shift multiplies speed.
     const boostFactor = input.current.boost ? 4 : 1; // Shift multiplies speed by 4
     const targetSpeed = f * maxSpeed * boostFactor;
     if (f !== 0) {
-      const dv =
-        Math.sign(targetSpeed - speedRef.current) *
-        Math.min(Math.abs(targetSpeed - speedRef.current), accel * delta);
-      speedRef.current += dv;
+      // set speed directly for constant travel
+      speedRef.current = targetSpeed;
     } else {
-      const dec =
-        Math.sign(speedRef.current) *
-        Math.min(Math.abs(speedRef.current), brake * delta);
-      speedRef.current -= dec;
+      // stop immediately when no input
+      speedRef.current = 0;
     }
 
     // --- 3. Compute move direction ---
-    const forwardLocal = tmpVec.current.set(1, 0, 0);
-    const wheelRefs = [steerFL, steerFR, steerBL, steerBR].filter(
-      Boolean
-    ) as (typeof steerFL)[];
-    const moveDir = new THREE.Vector3();
-    wheelRefs.forEach((s) => {
-      if (s.current) {
-        s.current.getWorldQuaternion(tmpQuat.current);
-        moveDir.add(
-          forwardLocal.clone().applyQuaternion(tmpQuat.current).normalize()
-        );
-      }
-    });
+    // reuse moveDirRef and tmpVec to avoid allocations
+    const forwardLocalX = tmpVec.current.set(1, 0, 0);
+    const moveDir = moveDirRef.current;
+    moveDir.set(0, 0, 0);
+    const steerList2 = steerRefs.current;
+    for (let i = 0; i < steerList2.length; i++) {
+      const s = steerList2[i];
+      if (!s) continue;
+      s.getWorldQuaternion(tmpQuat.current);
+      // apply quaternion into tmpVec2 then add to moveDir
+      tmpVec2.current
+        .copy(forwardLocalX)
+        .applyQuaternion(tmpQuat.current)
+        .normalize();
+      moveDir.add(tmpVec2.current);
+    }
     moveDir.normalize();
 
     // --- 4. Correct reverse movement ---
@@ -203,11 +210,8 @@ export default function AnimatedModel({
 
     // --- 5. Move car ---
     if (Math.abs(speedRef.current) > 0.0001) {
-      // reverse the movement vector if speed is negative
-      const moveVector = moveDir
-        .clone()
-        .multiplyScalar(speedRef.current * delta);
-      group.position.add(moveVector);
+      // reuse moveDir to scale movement without allocating
+      group.position.addScaledVector(moveDir, speedRef.current * delta);
     }
 
     // --- 6. Spin wheels ---
@@ -220,9 +224,11 @@ export default function AnimatedModel({
         Math.abs(speedRef.current) *
         spinMultiplier;
 
-    wheels.forEach((w) => {
+    const wlist = wheelsRef.current;
+    for (let i = 0; i < wlist.length; i++) {
+      const w = wlist[i];
       if (w && w.rotation) w.rotation.z -= spin * delta;
-    });
+    }
   });
 
   // Render the imported scene wrapped so we can control it

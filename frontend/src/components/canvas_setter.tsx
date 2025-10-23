@@ -1,7 +1,7 @@
 // PortfolioSection.tsx
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+// import { OrbitControls } from "@react-three/drei";
 
 type PortfolioSectionProps = {
   Scene: React.ReactElement;
@@ -22,8 +22,9 @@ export default function PortfolioSection({
     <div className="h-full w-full">
       <Canvas camera={{ position: cameraPosition, fov }}>
         <directionalLight position={[10, 0, 0]} intensity={lightIntensity} />
-        <ambientLight intensity={2.5} />
-        <OrbitControls enableZoom enablePan />
+        <directionalLight position={[-10, 0, 0]} intensity={lightIntensity} />
+        <ambientLight intensity={1.5} />
+        {/* <OrbitControls enableZoom enablePan /> */}
         
         {Scene}
       </Canvas>
