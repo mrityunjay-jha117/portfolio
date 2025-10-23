@@ -48,6 +48,7 @@ export default function Portfolio() {
   return (
     <div className="relative bg-gray-900 w-full h-screen overflow-x-hidden scrollbar-hide overflow-y-auto snap-y snap-mandatory scroll-smooth">
       {/* Desktop Sidenav - Hidden on mobile */}
+   
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}

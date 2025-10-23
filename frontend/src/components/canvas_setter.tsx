@@ -24,7 +24,7 @@ export default function PortfolioSection({
         <directionalLight position={[10, 0, 0]} intensity={lightIntensity} />
         <directionalLight position={[-10, 0, 0]} intensity={lightIntensity} />
         <ambientLight intensity={2.5} />
-        {/* <OrbitControls enableZoom enablePan /> */}
+        <OrbitControls enableZoom enablePan />
         {Scene}
       </Canvas>
     </div>

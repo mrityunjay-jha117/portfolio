@@ -7,8 +7,7 @@ export default function Try() {
         <PortfolioSection
           Scene={
             <AnimatedModel
-              gltfPath="/tukmon.glb"
-              // gltfPath="/explicit.glb"
+              gltfPath="/seedhi_gaadi.glb"
             />
           }
         />
