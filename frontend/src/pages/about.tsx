@@ -43,7 +43,7 @@ export default function About() {
           </div>
 
           {/* Coding Profiles - Simple inline links (dark theme) */}
-          <div className="flex flex-row gap-6 items-center mt-6">
+          <div className="flex z-20 flex-row gap-6 items-center mt-6">
             <div className="text-sm sm:text-base text-white">
               <a
                 href="https://codeforces.com/profile/silent_cartographer"

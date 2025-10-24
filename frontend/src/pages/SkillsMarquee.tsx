@@ -124,15 +124,15 @@ const SkillCard = memo(function SkillCard({
 }: SkillCardProps) {
   return (
     <div
-      className="relative flex-shrink-0"
-      style={{ width: "160px", height: "144px" }}
+      className="relative items-center justify-center flex-shrink-0"
+      style={{ width: "140px", height: "100px" }}
     >
       <div className="absolute inset-0 transform-gpu will-change-transform animate-slow-float">
         <div className="group relative h-full w-full rounded-xl overflow-hidden shadow-lg">
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 to-gray-800/40 border border-gray-700/30 transition-colors duration-300" />
 
           <div className="relative h-full flex flex-col items-center justify-center p-3">
-            <div className="w-16 h-16 mb-2 relative transform-gpu transition-transform duration-700">
+            <div className="w-10 h-10 mb-2 relative transform-gpu transition-transform duration-700">
               <img
                 src={skill.icon}
                 alt={skill.name}

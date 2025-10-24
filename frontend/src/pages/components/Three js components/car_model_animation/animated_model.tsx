@@ -121,8 +121,8 @@ export default function AnimatedModel({
       const k = e.key.toLowerCase();
       if (k === "w") input.current.forward = 1;
       if (k === "s") input.current.forward = -1;
-      if (k === "a") input.current.turn = 1;
-      if (k === "d") input.current.turn = -1;
+      if (k === "a") input.current.turn = -1;
+      if (k === "d") input.current.turn = 1;
       if (e.key === "Shift") input.current.boost = 1;
     };
     const up = (e: KeyboardEvent) => {
