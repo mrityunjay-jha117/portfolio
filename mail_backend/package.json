@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-mail-backend",
+  "version": "0.1.0",
+  "main": "api/send.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "nodemailer": "^6.10.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

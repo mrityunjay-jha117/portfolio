@@ -11,7 +11,7 @@ export default function Projects() {
       githubLink: "https://github.com/mrityunjay-jha117/AirBit",
       title: "AirBit",
       description:
-        "A responsive crypto dashboard with real-time charts and portfolio tracking.",
+        "videostreaming platform leveraging WebRTC to deliver low-latency, video content with real-time chat.",
     },
     {
       id: 1,
@@ -19,7 +19,7 @@ export default function Projects() {
       githubLink: "https://github.com/mrityunjay-jha117/nirvana-final",
       title: "Nirvana",
       description:
-        "An e-commerce inspired UI with smooth transitions and cart interactions.",
+        "Nirvana is a travel blogging platform with an immersive UI that lets users share and explore their journeys. Built on a serverless backend, offering seamless content creation, scalability, and an elegant experience.",
     },
     {
       id: 2,
@@ -27,15 +27,15 @@ export default function Projects() {
       githubLink: "https://github.com/mrityunjay-jha117/Three",
       title: "Three Pearl",
       description:
-        "A 3D scene-driven portfolio using Three.js for interactive visuals.",
+        "Three Pearl is an interactive 3D showcase of my Three.js learning journey, featuring creative experiments in shaders, lighting, and animation — built with React Three Fiber for seamless web rendering. ",
     },
     {
       id: 3,
       liveLink: "https://alaska-69fq.vercel.app/",
-      githubLink: "https://github.com/mrityunjay-jha117/metro_project",
-      title: "Metro Project",
+      githubLink: "https://github.com/mrityunjay-jha117/Alaska",
+      title: "Alaska",
       description:
-        "A transit route planner with animated map overlays and schedules.",
+        "Alaska connects Delhi Metro commuters with matching routes using Mapbox and advanced algorithms for smart path matching and secure chats",
     },
   ];
 

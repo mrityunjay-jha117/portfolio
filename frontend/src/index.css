@@ -38,13 +38,16 @@
 }
 
 .marquee-row-slow .marquee-track {
-  animation: marquee-left 30s linear infinite;
+  /* slowed from 30s -> 45s for gentler motion */
+  animation: marquee-left 60s linear infinite;
 }
 .marquee-row-fast .marquee-track {
-  animation: marquee-left 22s linear infinite;
+  /* slowed from 22s -> 34s; still faster than slow row but less aggressive */
+  animation: marquee-left 45s linear infinite;
 }
 .marquee-row-reverse .marquee-track {
-  animation: marquee-right 30s linear infinite;
+  /* slowed from 30s -> 45s to match slow row */
+  animation: marquee-right 60s linear infinite;
 }
 
 /* Duplicate content technique: ensure content repeats seamlessly by placing two copies inline */
@@ -65,5 +68,6 @@
 }
 
 .animate-slow-float {
-  animation: slow-float 6s ease-in-out infinite;
+  /* gentle vertical float; increased duration for smoother motion */
+  animation: slow-float 9s ease-in-out infinite;
 }

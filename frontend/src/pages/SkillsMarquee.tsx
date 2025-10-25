@@ -2,52 +2,66 @@ import { useMemo, memo } from "react";
 
 interface Skill {
   name: string;
-  icon: string;
-  category: string;
-  level: number;
+  icon?: string;
+  category?: string;
 }
 
 export default function SkillsMarquee() {
-  const skills: Skill[] = useMemo(
-    () => [
-      { name: "React", icon: "icons/1.png", category: "Frontend", level: 95 },
-      { name: "Node.js", icon: "icons/2.png", category: "Backend", level: 90 },
-      {
-        name: "TypeScript",
-        icon: "icons/3.png",
-        category: "Language",
-        level: 88,
-      },
-      { name: "Python", icon: "icons/4.png", category: "Language", level: 85 },
-      { name: "MongoDB", icon: "icons/5.png", category: "Database", level: 82 },
-      { name: "Docker", icon: "icons/6.png", category: "DevOps", level: 80 },
-      { name: "AWS", icon: "icons/7.png", category: "Cloud", level: 78 },
-      { name: "GraphQL", icon: "icons/8.png", category: "Backend", level: 85 },
-      { name: "Next.js", icon: "icons/9.png", category: "Frontend", level: 92 },
-      {
-        name: "PostgreSQL",
-        icon: "icons/10.png",
-        category: "Database",
-        level: 80,
-      },
-      { name: "Redis", icon: "icons/11.png", category: "Database", level: 75 },
-      {
-        name: "Kubernetes",
-        icon: "icons/12.png",
-        category: "DevOps",
-        level: 72,
-      },
-      { name: "Git", icon: "icons/13.png", category: "Tools", level: 90 },
-      {
-        name: "Vue.js",
-        icon: "icons/14.webp",
-        category: "Frontend",
-        level: 70,
-      },
-      { name: "Firebase", icon: "icons/15.webp", category: "Cloud", level: 85 },
-    ],
-    []
-  );
+  const skills: Skill[] = useMemo(() => {
+    // Canonical skill dataset provided by user
+    const list: Skill[] = [
+      // Languages
+      { name: "C",icon:"/icons/c.png", category: "Languages" },
+      { name: "C++",icon:"/icons/c++.png", category: "Languages" },
+      { name: "Python",icon:"/icons/python.png", category: "Languages" },
+      { name: "JavaScript",icon:"/icons/javascript.png", category: "Languages" },
+      { name: "TypeScript",icon:"/icons/typescript.png", category: "Languages" },
+      { name: "HTML",icon:"/icons/html.png", category: "Languages" },
+      { name: "XML",icon:"/icons/xml.png", category: "Languages" },
+      { name: "CSS",icon:"/icons/css-3.png", category: "Languages" },
+
+      // Frontend
+      { name: "React.js",icon:"/icons/react.png", category: "Frontend" },
+      { name: "Next.js",icon:"/icons/nextjs.png", category: "Frontend" },
+      { name: "Tailwind CSS",icon:"/icons/tailwind.png", category: "Frontend" },
+      { name: "Recoil.js",icon:"/icons/recoil.png", category: "Frontend" },
+      { name: "Redux Toolkit",icon:"/icons/redux.png", category: "Frontend" },
+      { name: "Framer Motion",icon:"/icons/framer-motion.svg", category: "Frontend" },
+      { name: "WebRTC",icon:"/icons/webrtc.svg", category: "Frontend" },
+
+      // Backend
+      { name: "Node.js",icon:"/icons/node-js.svg", category: "Backend" },
+      { name: "Hono",icon:"/icons/hono.webp", category: "Backend" },
+      { name: "JWT",icon:"/icons/jwt.webp", category: "Backend" },
+      { name: "OAuth 2.0",icon:"/icons/oauth.svg", category: "Backend" },
+      { name: "WebSockets",icon:"/icons/websocket.svg", category: "Backend" },
+      { name: "Socket.IO",icon:"/icons/socket-io.svg", category: "Backend" },
+      { name: "NGINX",icon:"/icons/nginx.svg", category: "Backend" },
+      { name: "Redis",icon:"/icons/redis.svg", category: "Backend" },
+
+      // Databases & ORM
+      { name: "PostgreSQL",icon:"/icons/postgresql.svg", category: "Databases & ORM" },
+      { name: "MongoDB",icon:"/icons/mongo.svg", category: "Databases & ORM" },
+      { name: "MySQL",icon:"/icons/mysql-logo-pure.svg", category: "Databases & ORM" },
+      { name: "Prisma ORM",icon:"/icons/prisma-3.svg", category: "Databases & ORM" },
+
+      // 3D & Interactive
+      { name: "Three.js",icon:"/icons/threejs-1.svg", category: "3D & Interactive" },
+      { name: "Gsap",icon:"/icons/gsap-greensock.svg", category: "3D & Interactive" },
+      { name: "Blender",icon:"/icons/blender-2.svg", category: "3D & Interactive" },
+      { name: "Figma",icon:"/icons/figma-icon.svg", category: "3D & Interactive" },
+
+      // DevOps & Deployment
+      { name: "GitHub",icon:"/icons/github-icon-1.svg", category: "DevOps & Deployment" },
+      { name: "Git",icon:"/icons/git-icon.svg", category: "DevOps & Deployment" },
+      { name: "Docker",icon:"/icons/docker-4.svg", category: "DevOps & Deployment" },
+      { name: "Vercel",icon:"/icons/v0-1.svg", category: "DevOps & Deployment" },
+      { name: "Cloudflare Workers",icon:"/icons/cloudflare-1.svg", category: "DevOps & Deployment" },
+      { name: "AWS",icon:"/icons/aws-2.svg", category: "DevOps & Deployment" },
+    ];
+
+    return list;
+  }, []);
 
   // Reduced duplication for better performance (2x instead of 3x)
   const duplicatedSkills = useMemo(() => [...skills, ...skills], [skills]);
