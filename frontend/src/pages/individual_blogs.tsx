@@ -26,7 +26,7 @@ export default function Individual_Blog() {
       if (!id) return;
       try {
         const res = await fetch(
-          `https://backend.mrityunjay-jha2005.workers.dev/api/v1/blog/${encodeURIComponent(
+          `https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog/${encodeURIComponent(
             id
           )}`
         );

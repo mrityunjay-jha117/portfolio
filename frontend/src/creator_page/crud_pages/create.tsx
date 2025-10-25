@@ -28,7 +28,7 @@ export default function CreateBlog() {
 
     try {
       const res = await fetch(
-        "https://backend.mrityunjay-jha2005.workers.dev/api/v1/blog/create",
+        "https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog/create",
         {
           method: "POST",
           headers: {

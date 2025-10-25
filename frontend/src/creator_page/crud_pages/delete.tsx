@@ -8,7 +8,7 @@ export default function DeleteBlog() {
     if (!id.trim()) return setStatus("ID is required");
     try {
       const res = await fetch(
-        `https://backend.mrityunjay-jha2005.workers.dev/api/v1/blog/${encodeURIComponent(
+        `https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog/${encodeURIComponent(
           id
         )}`,
         {

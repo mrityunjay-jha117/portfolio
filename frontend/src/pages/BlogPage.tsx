@@ -17,7 +17,7 @@ export default function BlogPage() {
     try {
       const limit = 6;
       const res = await fetch(
-        `https://backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=1&limit=${limit}`
+        `https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=1&limit=${limit}`
       );
       if (res.ok) {
         const data = await res.json();

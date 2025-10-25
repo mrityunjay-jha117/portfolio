@@ -20,7 +20,7 @@ export default function AllBlogsPage() {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=${page}&limit=${blogsPerPage}`
+        `https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=${page}&limit=${blogsPerPage}`
       );
       if (!res.ok) throw new Error(`Failed to fetch blogs: ${res.status}`);
       const data = await res.json();
