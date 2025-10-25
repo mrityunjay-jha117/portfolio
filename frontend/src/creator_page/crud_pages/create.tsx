@@ -17,11 +17,6 @@ export default function CreateBlog() {
     if (!title.trim()) return setStatus("Title is required");
     if (!link.trim()) return setStatus("Link is required");
 
-    const adminPassword = sessionStorage.getItem("admin_password");
-    if (!adminPassword) {
-      return setStatus("Admin password missing. Please login at /admin");
-    }
-
     const payload: BlogPayload = {
       title: title.trim(),
       link: link.trim(),
