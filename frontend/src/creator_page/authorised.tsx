@@ -3,7 +3,7 @@ export default function Authorised_Creator() {
   const navigate = useNavigate();
   return (
     <div className="flex justify-center items-center h-screen p-8 bg-gradient-to-br from-gray-900 to-black text-white">
-      <div className="max-w-3xl mx-auto">
+      <div className="w-3/5 mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold">Welcome, Mrityunjay</h1>
         </div>
@@ -22,7 +22,6 @@ export default function Authorised_Creator() {
             Delete
           </button>
         </div>
-       
       </div>
     </div>
   );
