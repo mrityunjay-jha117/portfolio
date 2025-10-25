@@ -145,6 +145,7 @@ export default function SignatureDemo({
         WebkitUserSelect: "none",
         MozUserSelect: "none",
         msUserSelect: "none",
+        padding: "70px",
         boxSizing: "border-box",
       }}
     >
