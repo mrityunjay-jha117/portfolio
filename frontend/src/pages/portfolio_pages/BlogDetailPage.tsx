@@ -229,12 +229,12 @@ export default function BlogDetailPage() {
             <div className="bg-gray-800/30 rounded-2xl p-6 border border-gray-700/50">
               <h3 className="text-lg font-semibold mb-3">Tags</h3>
               <div className="flex flex-wrap gap-2">
-                {(blog.tags || []).map((tg, i) => (
+                {(blog.tags || []).filter(Boolean).map((tg, i) => (
                   <span
                     key={i}
                     className="px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full text-sm text-purple-300"
                   >
-                    #{tg.toLowerCase().replace(/\s+/g, "")}
+                    #{String(tg).toLowerCase().replace(/\s+/g, "")}
                   </span>
                 ))}
               </div>
