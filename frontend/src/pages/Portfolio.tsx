@@ -260,7 +260,7 @@ export default function Portfolio() {
         >
           <div className="absolute z-10 h-screen w-full">
             <PortfolioSection
-              Scene={<AnimatedModel gltfPath="/seedhi_gaadi.glb" />}
+              Scene={<AnimatedModel gltfPath="/models/seedhi_gaadi.glb" />}
             />
           </div>
           <Third />

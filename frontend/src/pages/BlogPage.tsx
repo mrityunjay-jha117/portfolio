@@ -15,25 +15,39 @@ export default function BlogPage() {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      // Dummy API call - replace with your actual endpoint
-      // const response = await fetch(`/api/blogs?limit=6`);
-      // const data = await response.json();
-
-      // Dummy data for demonstration - showing only 6 blogs
-      const dummyData = {
-        blogs: Array.from({ length: 6 }, (_, i) => ({
-          id: i + 1,
-          title: `Exploring Modern Web Development`,
-          description:
-            "Dive deep into the latest trends and best practices in web development. Learn about cutting-edge technologies, performance optimization, and creating stunning user experiences.",
-          image:
-            "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=600&fit=crop",
-        })),
-      };
-
-      setBlogs(dummyData.blogs);
+      const limit = 6;
+      const res = await fetch(
+        `https://backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=1&limit=${limit}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const items = data.items || [];
+        const mapped = items.slice(0, limit).map((b: any) => ({
+          id: String(b.id),
+          title: String(b.title || ""),
+          tags: Array.isArray(b.tags) ? b.tags : [],
+        }));
+        setBlogs(mapped);
+      } else {
+        // fallback to dummy data when backend not available
+        const dummyData = {
+          blogs: Array.from({ length: 6 }, (_, i) => ({
+            id: String(i + 1),
+            title: `Exploring Modern Web Development`,
+          })),
+        };
+        setBlogs(dummyData.blogs as any);
+      }
     } catch (error) {
       console.error("Error fetching blogs:", error);
+      // fallback dummy
+      const dummyData = {
+        blogs: Array.from({ length: 6 }, (_, i) => ({
+          id: String(i + 1),
+          title: `Exploring Modern Web Development`,
+        })),
+      };
+      setBlogs(dummyData.blogs as any);
     } finally {
       setLoading(false);
     }

@@ -6,22 +6,8 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 const blogRouter = new Hono<{
   Bindings: {
     DATABASE_URL: string;
-    SECRET_CODE: string;
   };
 }>();
-
-// helper that returns boolean if request is admin-authorized
-function isAdmin(c: any) {
-  const provided = c.req.header("x-admin-password");
-  const expected = c.env.SECRET_CODE;
-  return !!expected && provided === expected;
-}
-
-// Hono middleware that enforces admin header
-const requireAdmin = async (c: any, next: any) => {
-  if (!isAdmin(c)) return c.json({ error: "unauthorized" }, 401);
-  await next();
-};
 
 // GET / -> list blogs (paginated)
 blogRouter.get("/", async (c) => {
@@ -57,23 +43,19 @@ blogRouter.get("/:id", async (c) => {
   return c.json(item);
 });
 
-// POST / -> create (protected)
-blogRouter.post("/", requireAdmin, async (c) => {
+// POST / -> create 
+blogRouter.post("/create",  async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
   const body = await c.req.json();
 
-  const segment = z.object({
-    text: z.string().optional(),
-    images: z.array(z.string()).optional(),
-  });
   const schema = z.object({
     title: z.string(),
-    description: z.array(segment),
-    tags: z.array(z.string()).optional(),
-    additional_links: z.array(z.string()).optional(),
-    code_link: z.string().optional(),
+    // schema.prisma requires tags: String[] (non-nullable) so require it here.
+    tags: z.array(z.string()),
+    // schema.prisma requires link: String (non-nullable)
+    link: z.string(),
   });
 
   const parsed = schema.safeParse(body);
@@ -82,18 +64,16 @@ blogRouter.post("/", requireAdmin, async (c) => {
   // normalize arrays and lowercase tags
   const dataToSave: any = {
     title: parsed.data.title,
-    description: parsed.data.description,
-    tags: (parsed.data.tags || []).map((t: string) => t.toLowerCase()),
-    additional_links: parsed.data.additional_links || [],
-    code_link: parsed.data.code_link || undefined,
+    tags: parsed.data.tags.map((t: string) => t.toLowerCase()),
+    link: parsed.data.link,
   };
 
   const created = await prisma.blog.create({ data: dataToSave as any });
   return c.json(created, 201);
 });
 
-// DELETE /:id -> delete (protected)
-blogRouter.delete("/:id", requireAdmin, async (c) => {
+// DELETE /:id -> delete 
+blogRouter.delete("/:id",  async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());

@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import blogRouter from "./routes/blog";
-import imageRouter from "./routes/image";
 
 import { cors } from "hono/cors";
 
@@ -23,7 +22,6 @@ app.use(
 );
 
 app.route("/api/v1/blog", blogRouter);
-app.route("/api/v1/image", imageRouter);
 
 app.get("/", (c) => {
   return c.html(`

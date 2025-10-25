@@ -10,11 +10,8 @@ datasource db {
 model Blog {
   id           String    @id @default(uuid())
   title        String
-  // store an array of description segments; each segment is an object { text: string, images: string[] }
-  description  Json
   createdAt    DateTime  @default(now())
   tags         String[]  //always when storing put it in lowercase to avoid case sensitivity issues
-  additional_links String[]
-  code_link    String?
+  link         String
 }
 

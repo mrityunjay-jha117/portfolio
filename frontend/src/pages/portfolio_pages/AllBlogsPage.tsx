@@ -19,27 +19,24 @@ export default function AllBlogsPage() {
   const fetchBlogs = async (page: number) => {
     setLoading(true);
     try {
-      // Dummy API call - replace with your actual endpoint
-      // const response = await fetch(`/api/blogs?page=${page}&limit=${blogsPerPage}`);
-      // const data = await response.json();
+      const res = await fetch(
+        `https://backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=${page}&limit=${blogsPerPage}`
+      );
+      if (!res.ok) throw new Error(`Failed to fetch blogs: ${res.status}`);
+      const data = await res.json();
 
-      // Dummy data for demonstration
-      const dummyData = {
-        blogs: Array.from({ length: blogsPerPage }, (_, i) => ({
-          id: (page - 1) * blogsPerPage + i + 1,
-          title: `Blog Post ${
-            (page - 1) * blogsPerPage + i + 1
-          }: Exploring Modern Web Development`,
-          description:
-            "Dive deep into the latest trends and best practices in web development. Learn about cutting-edge technologies, performance optimization, and creating stunning user experiences with React, TypeScript, and modern frameworks.",
-          image:
-            "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=600&fit=crop",
-        })),
-        totalPages: 10,
-      };
+      // backend returns { items, total, page, limit }
+      const items = data.items || [];
+      const total = Number(data.total || 0);
+      // map items to the Blog type expected by BlogCard (id as string)
+      const mapped = items.map((b: any) => ({
+        id: String(b.id),
+        title: String(b.title || ""),
+        tags: Array.isArray(b.tags) ? b.tags : [],
+      }));
 
-      setBlogs(dummyData.blogs);
-      setTotalPages(dummyData.totalPages);
+      setBlogs(mapped);
+      setTotalPages(Math.max(1, Math.ceil(total / blogsPerPage)));
     } catch (error) {
       console.error("Error fetching blogs:", error);
     } finally {

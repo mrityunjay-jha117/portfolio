@@ -5,12 +5,16 @@ export default function DeleteBlog() {
   const [status, setStatus] = useState<string | null>(null);
 
   const submit = async () => {
-    const pwd = sessionStorage.getItem("admin_password") || "";
+    if (!id.trim()) return setStatus("ID is required");
     try {
-      const res = await fetch(`/api/v1/blog/${encodeURIComponent(id)}`, {
-        method: "DELETE",
-        headers: { "x-admin-password": pwd },
-      });
+      const res = await fetch(
+        `https://backend.mrityunjay-jha2005.workers.dev/api/v1/blog/${encodeURIComponent(
+          id
+        )}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Delete failed");
       setStatus("Deleted");
@@ -26,7 +30,7 @@ export default function DeleteBlog() {
         <input
           value={id}
           onChange={(e) => setId(e.target.value)}
-          placeholder="ID or slug"
+          placeholder="Blog ID (exact UUID from list)"
           className="w-full p-3 mb-2 rounded-lg bg-gray-800/50"
         />
         <div className="flex gap-3">

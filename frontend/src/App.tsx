@@ -7,10 +7,9 @@ import {
 } from "react-router-dom";
 import Portfolio from "./pages/Portfolio";
 import Game from "./pages/Game";
+import Individual_Blog from "./pages/individual_blogs";
 import AllBlogsPage from "./pages/portfolio_pages/AllBlogsPage";
-import BlogDetailPage from "./pages/portfolio_pages/BlogDetailPage";
 import SignatureDemo from "./components/Signature";
-import Creator from "./creator_page/creator";
 import Authorised_Creator from "./creator_page/authorised";
 import CreateBlog from "./creator_page/crud_pages/create";
 import DeleteBlog from "./creator_page/crud_pages/delete";
@@ -39,8 +38,7 @@ function AppRouter() {
         <Route path="/" element={<Portfolio />} />
         <Route path="/game" element={<Game />} />
         <Route path="/blogs/all" element={<AllBlogsPage />} />
-        <Route path="/blogs/:id" element={<BlogDetailPage />} />
-        <Route path="/admin" element={<Creator />} />
+        <Route path="/blogs/:id" element={<Individual_Blog />} />
         <Route path="/real_admin" element={<Authorised_Creator />} />
         <Route path="/real_admin/create" element={<CreateBlog />} />
         <Route path="/real_admin/delete" element={<DeleteBlog />} />

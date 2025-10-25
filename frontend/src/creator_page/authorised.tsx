@@ -1,37 +1,6 @@
-// import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-// type Blog = { id: string; title: string; slug: string; published?: boolean };
-
 export default function Authorised_Creator() {
   const navigate = useNavigate();
-
-  // const getAdminPassword = () => sessionStorage.getItem("admin_password") || "";
-
-  //   async function checkAuthAndLoad() {
-  //     const pw = getAdminPassword();
-  //     if (!pw) return navigate("/admin");
-
-  //     try {
-  //       const resp = await fetch("/api/v1/blog/auth", {
-  //         headers: { "x-admin-password": pw },
-  //       });
-  //       const data = await resp.json();
-  //       if (!data?.ok) return navigate("/admin");
-  //       await loadBlogs();
-  //     } catch (err) {
-  //       console.error(err);
-  //       navigate("/admin");
-  //     }
-  //   }
-
-  //
-
-  // useEffect(() => {
-  //   // checkAuthAndLoad();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   return (
     <div className="flex justify-center items-center h-screen p-8 bg-gradient-to-br from-gray-900 to-black text-white">
       <div className="max-w-3xl mx-auto">
