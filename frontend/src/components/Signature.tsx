@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 type Props = {
   onFinish?: () => void;
@@ -117,14 +118,22 @@ export default function SignatureDemo({
     };
   }, []);
 
-  return (
+  // In some production builds an ancestor may have a CSS transform which
+  // makes `position: fixed` behave like `position: absolute` relative to
+  // that ancestor. To ensure the overlay always covers the viewport we
+  // render it into document.body via a portal and use top/left/right/bottom
+  // layout with boxSizing so padding doesn't push it outside the viewport.
+  if (typeof document === "undefined") return null;
+
+  const overlay = (
     <div
       aria-hidden={false}
       style={{
         position: "fixed",
-        inset: 0,
-        width: "100vw",
-        height: "100vh",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         margin: 0,
         background: "#000",
         zIndex: 99999,
@@ -137,6 +146,7 @@ export default function SignatureDemo({
         MozUserSelect: "none",
         msUserSelect: "none",
         padding: "40px",
+        boxSizing: "border-box",
       }}
     >
       <svg
@@ -169,7 +179,7 @@ export default function SignatureDemo({
             style={{
               fill: "#fff",
               stroke: "#fff",
-              strokeWidth:4,
+              strokeWidth: 4,
               paintOrder: "stroke fill",
               dominantBaseline: "middle",
               userSelect: "none",
@@ -184,4 +194,6 @@ export default function SignatureDemo({
       </svg>
     </div>
   );
+
+  return createPortal(overlay, document.body);
 }
