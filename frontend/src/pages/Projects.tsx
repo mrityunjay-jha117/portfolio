@@ -31,7 +31,7 @@ export default function Projects() {
     },
     {
       id: 3,
-      liveLink: "https://metro-project-amber.vercel.app/",
+      liveLink: "https://alaska-69fq.vercel.app/",
       githubLink: "https://github.com/mrityunjay-jha117/metro_project",
       title: "Metro Project",
       description:
