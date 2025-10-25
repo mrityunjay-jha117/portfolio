@@ -6,10 +6,6 @@ export default function Authorised_Creator() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold">Welcome, Mrityunjay</h1>
-          <p className="text-gray-300 mt-2">
-            Choose an action to manage your blogs. The server will require the
-            admin password when performing Create, Update or Delete operations.
-          </p>
         </div>
         <div className="flex flex-col h-50 text-4xl font-extrabold sm:flex-row gap-4 mb-8">
           <button
@@ -26,17 +22,7 @@ export default function Authorised_Creator() {
             Delete
           </button>
         </div>
-        <div className="flex justify-end mb-6">
-          <button
-            onClick={() => {
-              sessionStorage.removeItem("admin_password");
-              navigate("/admin");
-            }}
-            className="px-4 py-2 bg-gray-700 rounded-lg"
-          >
-            Logout
-          </button>
-        </div>
+       
       </div>
     </div>
   );
