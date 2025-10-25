@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio_backend",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-06-05",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "DATABASE_URL": "string",
+    "SECRET_CODE": "string",
+    "CLOUDINARY_CLOUD_NAME": "string",
+    "CLOUDINARY_API_KEY": "string",
+    "GEMINI_API": "string",
+    "CLOUDINARY_API_SECRET": "string"
+  }
+}
