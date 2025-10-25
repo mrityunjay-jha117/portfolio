@@ -10,7 +10,8 @@ export default function ContactCard() {
   const [sending, setSending] = useState(false);
 
   const MAIL_ENDPOINT =
-    (import.meta as any).env.VITE_MAIL_ENDPOINT || "http://localhost:4000/send";
+    (import.meta as any).env.VITE_MAIL_ENDPOINT ||
+    "https://mailgun-nine.vercel.app/api/send";
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
