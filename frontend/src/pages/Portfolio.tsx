@@ -257,9 +257,9 @@ export default function Portfolio() {
             <PortfolioSection
               Scene={
                 <AnimatedModel
-                  gltfPath="/models/mustang.glb"
+                  gltfPath="/models/stylized_mustang.glb"
                   // gltfPath="/models/seedhi_gaadi.glb"
-                  position={[20, -2.5, -14]}
+                  position={[15, -1, -13]}
                 />
               }
             />

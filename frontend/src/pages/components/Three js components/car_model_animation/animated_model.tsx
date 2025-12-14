@@ -11,7 +11,7 @@ type AnimatedModelProps = {
 
 export default function AnimatedModel({
   gltfPath,
-  scale = 1.8,
+  scale = 2.0,
   position = [0, 0, 0],
 }: AnimatedModelProps) {
   const groupRef = useRef<THREE.Group | null>(null);
@@ -154,7 +154,7 @@ export default function AnimatedModel({
     if (typeof document !== "undefined" && document.hidden) return;
 
     // Parameters (module-level constants would be better; kept here for readability)
-    const maxSpeed = 6.0;
+    const maxSpeed = 8.0;
     const turnSpeed = 1.2;
     const maxSteerAngle = 0.3;
     const rearSteerFactor = 0.2;
@@ -234,7 +234,7 @@ export default function AnimatedModel({
       const wlist = wheelsRef.current;
       for (let i = 0; i < wlist.length; i++) {
         const w = wlist[i];
-        if (w && w.rotation) w.rotation.z -= spin * delta;
+        if (w && w.rotation) w.rotation.x += spin * delta;
       }
     }
   });
@@ -243,7 +243,7 @@ export default function AnimatedModel({
   return (
     <primitive
       ref={groupRef}
-      rotation={[0, -0.5, 0]}
+      rotation={[0, -0.4, 0]}
       object={scene}
       scale={scale}
     />

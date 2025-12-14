@@ -11,7 +11,7 @@ export default function About() {
           </h1>
           <h2 className="text-red-400 font-bold text-center lg:text-left mb-2 text-base sm:text-lg lg:text-xl leading-relaxed">
             UnderGraduate in Computer Science Engineering <br />
-            <span className="text-red-400">Delhi Technological University</span>
+            <span className="text-red-400">Delhi College of Engineering</span>
           </h2>
           <h2 className="w-full lg:max-w-xl text-center lg:text-left mb-4 sm:mb-6 text-sm sm:text-base lg:text-lg leading-relaxed">
             I'm a full-stack web developer with a passion for 3D web, game
