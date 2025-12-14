@@ -231,13 +231,7 @@ export default function Portfolio() {
           onClick={openGame}
           className="w-12 hidden sm:block h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-white hover:bg-blue-500 transition-colors cursor-pointer shadow-lg z-[105] relative"
           title="Open 3D Game"
-        >
-          <img
-            src="assets/console.png"
-            alt="no horo tere se"
-            className="h-full w-full p-1 object-cover"
-          />
-        </motion.button>
+        />
       </motion.div>
 
       <div className="w-full flex flex-col gap-0  ">
@@ -252,18 +246,24 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="relative snap-start min-h-screen"
+          className="relative snap-start flex flex-row min-h-screen"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
-          <div className="absolute z-10 h-screen w-full">
+          <Third />
+          <div className="hidden lg:block absolute z-10 h-screen w-full">
             <PortfolioSection
-              Scene={<AnimatedModel gltfPath="/models/seedhi_gaadi.glb" />}
+              Scene={
+                <AnimatedModel
+                  gltfPath="/models/mustang.glb"
+                  // gltfPath="/models/seedhi_gaadi.glb"
+                  position={[20, -2.5, -14]}
+                />
+              }
             />
           </div>
-          <Third />
         </motion.div>
 
         <motion.div

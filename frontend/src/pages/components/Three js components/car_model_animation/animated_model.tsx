@@ -6,11 +6,13 @@ import * as THREE from "three";
 type AnimatedModelProps = {
   gltfPath: string;
   scale?: number;
+  position?: [number, number, number];
 };
 
 export default function AnimatedModel({
   gltfPath,
   scale = 1.8,
+  position = [0, 0, 0],
 }: AnimatedModelProps) {
   const groupRef = useRef<THREE.Group | null>(null);
   const { scene, animations } = useGLTF(gltfPath) as any;
@@ -36,6 +38,11 @@ export default function AnimatedModel({
   const tmpQuat = useRef(new THREE.Quaternion());
   const moveDirRef = useRef(new THREE.Vector3());
   const tmpVec2 = useRef(new THREE.Vector3());
+  useEffect(() => {
+    if (!groupRef.current) return;
+
+    groupRef.current.position.set(position[0], position[1], position[2]);
+  }, [position]);
 
   useEffect(() => {
     // gather nodes from scene by names described in your model
@@ -233,5 +240,12 @@ export default function AnimatedModel({
   });
 
   // Render the imported scene wrapped so we can control it
-  return <primitive ref={groupRef} object={scene} scale={scale} />;
+  return (
+    <primitive
+      ref={groupRef}
+      rotation={[0, -0.5, 0]}
+      object={scene}
+      scale={scale}
+    />
+  );
 }

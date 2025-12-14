@@ -22,7 +22,7 @@ export default function Landing_Page() {
       className="h-screen w-full mx-auto text-white flex flex-row items-center justify-center select-none"
     >
       {/* Physics layer above hero content but below UI elements */}
-      <div className="hidden sm:block absolute inset-0 z-30">
+      <div className="hidden lg:block absolute inset-0 z-30">
         <RapierPhysics />
       </div>
       {/* Content below physics layer - Centered container */}
