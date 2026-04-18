@@ -36,7 +36,7 @@ export default function Portfolio() {
 
   const scrollToTop = () => {
     const scrollContainer = document.querySelector(
-      ".overflow-y-auto"
+      ".overflow-y-auto",
     ) as HTMLElement;
     if (scrollContainer) {
       scrollContainer.scrollTo({
@@ -234,7 +234,7 @@ export default function Portfolio() {
         />
       </motion.div>
 
-      <div className="w-full flex flex-col gap-0  ">
+      <div className="w-full flex flex-col gap-0   ">
         <motion.div
           className="snap-start min-h-screen"
           initial={{ opacity: 0, y: 50 }}
@@ -265,7 +265,6 @@ export default function Portfolio() {
             />
           </div>
         </motion.div>
-
         <motion.div
           className="snap-start min-h-screen"
           initial={{ opacity: 0, y: 50 }}

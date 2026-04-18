@@ -259,7 +259,7 @@ export const PhysicsScene: React.FC = () => {
   const bodies = useMemo(() => {
     const bodyArray = [];
     const ballCount = 25;
-    const range = 30;
+    const range = 40;
 
     for (let i = 0; i < ballCount; i++) {
       const position: [number, number, number] = [

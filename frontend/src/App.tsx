@@ -9,10 +9,11 @@ import Portfolio from "./pages/Portfolio";
 import Game from "./pages/Game";
 import Individual_Blog from "./pages/individual_blogs";
 import AllBlogsPage from "./pages/portfolio_pages/AllBlogsPage";
-import SignatureDemo from "./components/Signature";
 import Authorised_Creator from "./creator_page/authorised";
 import CreateBlog from "./creator_page/crud_pages/create";
 import DeleteBlog from "./creator_page/crud_pages/delete";
+import Overlay from "./pages/overlay";
+
 function AppRouter() {
   const location = useLocation();
   // overlay shown initially, and whenever location.key changes
@@ -27,10 +28,7 @@ function AppRouter() {
     <>
       {showOverlay && (
         // key by location.key so it remounts on each navigation
-        <SignatureDemo
-          key={location.key}
-          onFinish={() => setShowOverlay(false)}
-        />
+        <Overlay key={location.key} onFinish={() => setShowOverlay(false)} />
       )}
 
       {/* When overlay is visible, it sits above routes and will hide itself when finished */}

@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+@-webkit-keyframes blur-out-expand-fwd {
+  0% {
+    -webkit-transform: scale(1) translateZ(0);
+    transform: scale(1) translateZ(0);
+    -webkit-filter: blur(0.01);
+    filter: blur(0.01);
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: 1.5em;
+    -webkit-transform: scale(4) translateZ(300px);
+    transform: scale(4) translateZ(300px);
+    -webkit-filter: blur(12px) opacity(0%);
+    filter: blur(12px) opacity(0%);
+  }
+}
+@keyframes blur-out-expand-fwd {
+  0% {
+    -webkit-transform: scale(1) translateZ(0);
+    transform: scale(1) translateZ(0);
+    -webkit-filter: blur(0.01);
+    filter: blur(0.01);
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: 1.5em;
+    -webkit-transform: scale(4) translateZ(300px);
+    transform: scale(4) translateZ(300px);
+    -webkit-filter: blur(12px) opacity(0%);
+    filter: blur(12px) opacity(0%);
+  }
+}
+
 /* Hide scrollbar - cross-browser */
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
@@ -70,4 +103,9 @@
 .animate-slow-float {
   /* gentle vertical float; increased duration for smoother motion */
   animation: slow-float 9s ease-in-out infinite;
+}
+
+.blur-out-expand-fwd {
+  -webkit-animation: blur-out-expand-fwd 4.5s linear forwards;
+  animation: blur-out-expand-fwd 4.5s linear forwards;
 }

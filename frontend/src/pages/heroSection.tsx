@@ -77,7 +77,7 @@ export default function Landing_Page() {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
-              className="w-full font-bold rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-red-500 hover:bg-red-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm shadow-lg"
+              className="w-full font-bold rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-red-400 hover:bg-red-500 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm shadow-lg"
             >
               Resume
             </motion.a>
