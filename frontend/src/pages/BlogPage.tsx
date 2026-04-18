@@ -17,7 +17,7 @@ export default function BlogPage() {
     try {
       const limit = 6;
       const res = await fetch(
-        `https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=1&limit=${limit}`
+        `https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=1&limit=${limit}`,
       );
       if (res.ok) {
         const data = await res.json();
@@ -69,7 +69,7 @@ export default function BlogPage() {
         transition={{ duration: 0.6 }}
         className="max-w-7xl mx-auto mb-12 px-4 sm:px-6 lg:px-8"
       >
-        <h1 className="text-4xl md:text-5xl lg:text-8xl font-black mb-3 text-blue-500 ">
+        <h1 className="text-4xl md:text-5xl lg:text-8xl font-black mb-3 text-blue-400 ">
           BLOGS
         </h1>
       </motion.div>
@@ -107,7 +107,7 @@ export default function BlogPage() {
         >
           <button
             onClick={handleViewAll}
-            className="group relative px-8 py-3 rounded-xl bg-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/30"
+            className="group relative px-8 py-3 rounded-xl bg-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-400/30"
           >
             <span className="flex items-center gap-2 text-white font-semibold text-sm">
               View More

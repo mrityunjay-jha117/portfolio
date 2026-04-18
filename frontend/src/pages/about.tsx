@@ -6,7 +6,7 @@ export default function About() {
     >
       <div className="w-full max-w-md sm:max-w-lg lg:max-w-none lg:w-1/2">
         <div className="flex flex-col justify-center items-center lg:items-start w-full text-white">
-          <h1 className="text-3xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-blue-500 text-center lg:text-left mb-3 sm:mb-4">
+          <h1 className="text-3xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-blue-400 text-center lg:text-left mb-3 sm:mb-4">
             About Me
           </h1>
           <h2 className="text-red-400 font-bold text-center lg:text-left mb-2 text-base sm:text-lg lg:text-xl leading-relaxed">
@@ -88,7 +88,7 @@ export default function About() {
 
       {/* Right side - Placeholder for 3D model/image */}
       <div className="hidden lg:block w-1/2 flex items-center justify-center mt-6 lg:mt-0">
-        <div className="text-center h-30 lg:h-50 bg-gray-800 rounded-2xl border border-gray-700"/>
+        <div className="text-center h-30 lg:h-50 bg-gray-800 rounded-2xl border border-gray-700" />
       </div>
     </div>
   );

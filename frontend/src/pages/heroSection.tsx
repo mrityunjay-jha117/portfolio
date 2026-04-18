@@ -43,7 +43,7 @@ export default function Landing_Page() {
             <br />
             <motion.span
               variants={item}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-blue-500 font-black block mt-2 sm:mt-3"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-blue-400 font-black block mt-2 sm:mt-3"
             >
               Mrityunjay Jha
             </motion.span>
@@ -95,7 +95,7 @@ export default function Landing_Page() {
                   });
                 }
               }}
-              className="w-full font-bold rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm shadow-lg"
+              className="w-full font-bold rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-blue-400 hover:bg-blue-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm shadow-lg"
             >
               Contact Me
             </motion.button>

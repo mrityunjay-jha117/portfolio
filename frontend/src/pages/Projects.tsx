@@ -7,11 +7,11 @@ export default function Projects() {
   const projectsData = [
     {
       id: 0,
-      liveLink: "https://your-project-1-live.com",
-      githubLink: "https://github.com/mrityunjay-jha117/AirBit",
-      title: "AirBit",
+      liveLink: "https://genpact.quickintell.com/",
+      githubLink: "https://github.com/mrityunjay-jha117/Genpact",
+      title: "Genpact",
       description:
-        "videostreaming platform leveraging WebRTC to deliver low-latency, video content with real-time chat.",
+        "Genpact is a AI-powered analytics platform that helps businesses make data-driven decisions. It provides a comprehensive suite of tools for data analysis, visualization, and reporting.",
     },
     {
       id: 1,
@@ -69,7 +69,7 @@ export default function Projects() {
   return (
     <div className="h-screen w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center py-8 sm:py-12 select-none">
       <div className="flex items-start justify-start w-full text-left">
-        <h1 className="text-3xl lg:text-6xl xl:text-8xl text-blue-500 font-black tracking-tight">
+        <h1 className="text-3xl lg:text-6xl xl:text-8xl text-blue-400 font-black tracking-tight">
           Projects
         </h1>
       </div>

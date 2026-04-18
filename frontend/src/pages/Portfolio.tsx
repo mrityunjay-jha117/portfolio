@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import First from "./heroSection";
 import Second from "./Projects";
 import Third from "./about";
+import Experience from "./experience";
 import Sixth from "./contactMe";
 import Header from "../dashboard/header";
 import Sidenav from "../dashboard/sidenav";
@@ -11,6 +12,7 @@ import BlogPage from "./BlogPage";
 import SkillsMarquee from "./SkillsMarquee";
 import PortfolioSection from "./components/Three js components/car_model_animation/canvas_setter";
 import AnimatedModel from "./components/Three js components/car_model_animation/animated_model";
+
 export default function Portfolio() {
   const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -54,7 +56,7 @@ export default function Portfolio() {
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="hidden lg:block fixed left-4 xl:left-10 w-13 z-[115] h-2/3 top-[20%] bg-blue-500 rounded-full"
+        className="hidden lg:block fixed left-4 xl:left-10 w-13 z-[115] h-2/3 top-[20%] bg-blue-400 rounded-full"
       >
         <Sidenav />
       </motion.div>
@@ -208,7 +210,7 @@ export default function Portfolio() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToTop}
-              className="w-12 h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-lg z-[105] relative"
+              className="w-12 h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-blue-400 hover:bg-blue-600 transition-colors cursor-pointer shadow-lg z-[105] relative"
               title="Scroll to Top"
             >
               ^^
@@ -229,7 +231,7 @@ export default function Portfolio() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={openGame}
-          className="w-12 hidden sm:block h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-white hover:bg-blue-500 transition-colors cursor-pointer shadow-lg z-[105] relative"
+          className="w-12 hidden sm:block h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-white hover:bg-blue-400 transition-colors cursor-pointer shadow-lg z-[105] relative"
           title="Open 3D Game"
         />
       </motion.div>
@@ -265,6 +267,17 @@ export default function Portfolio() {
             />
           </div>
         </motion.div>
+
+        <motion.div
+          className="snap-start min-h-screen"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+        >
+          <Experience />
+        </motion.div>
+
         <motion.div
           className="snap-start min-h-screen"
           initial={{ opacity: 0, y: 50 }}

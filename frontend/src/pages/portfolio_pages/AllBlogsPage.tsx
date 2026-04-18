@@ -20,7 +20,7 @@ export default function AllBlogsPage() {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=${page}&limit=${blogsPerPage}`
+        `https://portfolio_backend.mrityunjay-jha2005.workers.dev/api/v1/blog?page=${page}&limit=${blogsPerPage}`,
       );
       if (!res.ok) throw new Error(`Failed to fetch blogs: ${res.status}`);
       const data = await res.json();
@@ -170,10 +170,10 @@ export default function AllBlogsPage() {
                   disabled={page === "..."}
                   className={`min-w-[40px] h-12 px-3 rounded-xl transition-all duration-300 font-semibold ${
                     currentPage === page
-                      ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-purple-500/50 scale-110"
+                      ? "bg-gradient-to-r from-blue-400 to-purple-500 text-white shadow-lg shadow-purple-500/50 scale-110"
                       : page === "..."
-                      ? "bg-transparent text-gray-600 cursor-default"
-                      : "bg-gray-800/50 border border-gray-700/50 hover:border-purple-500/50 text-gray-400 hover:text-white hover:bg-gray-700/50"
+                        ? "bg-transparent text-gray-600 cursor-default"
+                        : "bg-gray-800/50 border border-gray-700/50 hover:border-purple-500/50 text-gray-400 hover:text-white hover:bg-gray-700/50"
                   }`}
                 >
                   {page}
