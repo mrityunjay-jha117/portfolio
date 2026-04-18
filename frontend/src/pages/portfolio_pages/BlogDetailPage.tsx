@@ -104,7 +104,7 @@ export default function BlogDetailPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-50" />
+      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 z-50" />
       <button
         onClick={() => navigate(-1)}
         className="fixed top-6 left-6 z-40 flex items-center gap-2 px-3 py-2 bg-gray-800/50 rounded-full border border-gray-700"

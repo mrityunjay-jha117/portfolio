@@ -11,53 +11,125 @@ export default function SkillsMarquee() {
     // Canonical skill dataset provided by user
     const list: Skill[] = [
       // Languages
-      { name: "C",icon:"/icons/c.png", category: "Languages" },
-      { name: "C++",icon:"/icons/c++.png", category: "Languages" },
-      { name: "Python",icon:"/icons/python.png", category: "Languages" },
-      { name: "JavaScript",icon:"/icons/javascript.png", category: "Languages" },
-      { name: "TypeScript",icon:"/icons/typescript.png", category: "Languages" },
-      { name: "HTML",icon:"/icons/html.png", category: "Languages" },
-      { name: "XML",icon:"/icons/xml.png", category: "Languages" },
-      { name: "CSS",icon:"/icons/css-3.png", category: "Languages" },
+      { name: "C", icon: "/icons/c.png", category: "Languages" },
+      { name: "C++", icon: "/icons/c++.png", category: "Languages" },
+      { name: "Python", icon: "/icons/python.png", category: "Languages" },
+      {
+        name: "JavaScript",
+        icon: "/icons/javascript.png",
+        category: "Languages",
+      },
+      {
+        name: "TypeScript",
+        icon: "/icons/typescript.png",
+        category: "Languages",
+      },
+      { name: "HTML", icon: "/icons/html.png", category: "Languages" },
+      { name: "XML", icon: "/icons/xml.png", category: "Languages" },
+      { name: "CSS", icon: "/icons/css-3.png", category: "Languages" },
 
       // Frontend
-      { name: "React.js",icon:"/icons/react.png", category: "Frontend" },
-      { name: "Next.js",icon:"/icons/nextjs.png", category: "Frontend" },
-      { name: "Tailwind CSS",icon:"/icons/tailwind.png", category: "Frontend" },
-      { name: "Recoil.js",icon:"/icons/recoil.png", category: "Frontend" },
-      { name: "Redux Toolkit",icon:"/icons/redux.png", category: "Frontend" },
-      { name: "Framer Motion",icon:"/icons/framer-motion.svg", category: "Frontend" },
-      { name: "WebRTC",icon:"/icons/webrtc.svg", category: "Frontend" },
+      { name: "React.js", icon: "/icons/react.png", category: "Frontend" },
+      { name: "Next.js", icon: "/icons/nextjs.png", category: "Frontend" },
+      {
+        name: "Tailwind CSS",
+        icon: "/icons/tailwind.png",
+        category: "Frontend",
+      },
+      { name: "Recoil.js", icon: "/icons/recoil.png", category: "Frontend" },
+      { name: "Redux Toolkit", icon: "/icons/redux.png", category: "Frontend" },
+      {
+        name: "Framer Motion",
+        icon: "/icons/framer-motion.svg",
+        category: "Frontend",
+      },
+      { name: "WebRTC", icon: "/icons/webrtc.svg", category: "Frontend" },
 
       // Backend
-      { name: "Node.js",icon:"/icons/node-js.svg", category: "Backend" },
-      { name: "Hono",icon:"/icons/hono.webp", category: "Backend" },
-      { name: "JWT",icon:"/icons/jwt.webp", category: "Backend" },
-      { name: "OAuth 2.0",icon:"/icons/oauth.svg", category: "Backend" },
-      { name: "WebSockets",icon:"/icons/websocket.svg", category: "Backend" },
-      { name: "Socket.IO",icon:"/icons/socket-io.svg", category: "Backend" },
-      { name: "NGINX",icon:"/icons/nginx.svg", category: "Backend" },
-      { name: "Redis",icon:"/icons/redis.svg", category: "Backend" },
+      { name: "Node.js", icon: "/icons/node-js.svg", category: "Backend" },
+      { name: "Hono", icon: "/icons/hono.webp", category: "Backend" },
+      { name: "JWT", icon: "/icons/jwt.webp", category: "Backend" },
+      { name: "OAuth 2.0", icon: "/icons/oauth.svg", category: "Backend" },
+      { name: "WebSockets", icon: "/icons/websocket.svg", category: "Backend" },
+      { name: "Socket.IO", icon: "/icons/socket-io.svg", category: "Backend" },
+      { name: "NGINX", icon: "/icons/nginx.svg", category: "Backend" },
+      { name: "Redis", icon: "/icons/redis.svg", category: "Backend" },
 
       // Databases & ORM
-      { name: "PostgreSQL",icon:"/icons/postgresql.svg", category: "Databases & ORM" },
-      { name: "MongoDB",icon:"/icons/mongo.svg", category: "Databases & ORM" },
-      { name: "MySQL",icon:"/icons/mysql-logo-pure.svg", category: "Databases & ORM" },
-      { name: "Prisma ORM",icon:"/icons/prisma-3.svg", category: "Databases & ORM" },
+      {
+        name: "PostgreSQL",
+        icon: "/icons/postgresql.svg",
+        category: "Databases & ORM",
+      },
+      {
+        name: "MongoDB",
+        icon: "/icons/mongo.svg",
+        category: "Databases & ORM",
+      },
+      {
+        name: "MySQL",
+        icon: "/icons/mysql-logo-pure.svg",
+        category: "Databases & ORM",
+      },
+      {
+        name: "Prisma ORM",
+        icon: "/icons/prisma-3.svg",
+        category: "Databases & ORM",
+      },
 
       // 3D & Interactive
-      { name: "Three.js",icon:"/icons/threejs-1.svg", category: "3D & Interactive" },
-      { name: "Gsap",icon:"/icons/gsap-greensock.svg", category: "3D & Interactive" },
-      { name: "Blender",icon:"/icons/blender-2.svg", category: "3D & Interactive" },
-      { name: "Figma",icon:"/icons/figma-icon.svg", category: "3D & Interactive" },
+      {
+        name: "Three.js",
+        icon: "/icons/threejs-1.svg",
+        category: "3D & Interactive",
+      },
+      {
+        name: "Gsap",
+        icon: "/icons/gsap-greensock.svg",
+        category: "3D & Interactive",
+      },
+      {
+        name: "Blender",
+        icon: "/icons/blender-2.svg",
+        category: "3D & Interactive",
+      },
+      {
+        name: "Figma",
+        icon: "/icons/figma-icon.svg",
+        category: "3D & Interactive",
+      },
 
       // DevOps & Deployment
-      { name: "GitHub",icon:"/icons/github-icon-1.svg", category: "DevOps & Deployment" },
-      { name: "Git",icon:"/icons/git-icon.svg", category: "DevOps & Deployment" },
-      { name: "Docker",icon:"/icons/docker-4.svg", category: "DevOps & Deployment" },
-      { name: "Vercel",icon:"/icons/v0-1.svg", category: "DevOps & Deployment" },
-      { name: "Cloudflare Workers",icon:"/icons/cloudflare-1.svg", category: "DevOps & Deployment" },
-      { name: "AWS",icon:"/icons/aws-2.svg", category: "DevOps & Deployment" },
+      {
+        name: "GitHub",
+        icon: "/icons/github-icon-1.svg",
+        category: "DevOps & Deployment",
+      },
+      {
+        name: "Git",
+        icon: "/icons/git-icon.svg",
+        category: "DevOps & Deployment",
+      },
+      {
+        name: "Docker",
+        icon: "/icons/docker-4.svg",
+        category: "DevOps & Deployment",
+      },
+      {
+        name: "Vercel",
+        icon: "/icons/v0-1.svg",
+        category: "DevOps & Deployment",
+      },
+      {
+        name: "Cloudflare Workers",
+        icon: "/icons/cloudflare-1.svg",
+        category: "DevOps & Deployment",
+      },
+      {
+        name: "AWS",
+        icon: "/icons/aws-2.svg",
+        category: "DevOps & Deployment",
+      },
     ];
 
     return list;
@@ -161,7 +233,7 @@ const SkillCard = memo(function SkillCard({
             </h3>
           </div>
 
-          <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-blue-500/0 transition-all duration-300 rounded-tl-2xl" />
+          <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-blue-400/0 transition-all duration-300 rounded-tl-2xl" />
           <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-purple-500/0 transition-all duration-300 rounded-br-2xl" />
         </div>
       </div>

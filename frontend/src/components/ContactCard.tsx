@@ -37,7 +37,7 @@ export default function ContactCard() {
       if (!res.ok) {
         console.error("mail send error", data);
         setStatus(
-          data && data.error ? String(data.error) : "Failed to send message"
+          data && data.error ? String(data.error) : "Failed to send message",
         );
       } else {
         setStatus("Message sent — thank you!");
@@ -75,7 +75,7 @@ export default function ContactCard() {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full mt-1 p-1 rounded-md bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+            className="w-full mt-1 p-1 rounded-md bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-shadow"
           />
         </div>
         <div className="flex flex-row items-center justify-center gap-2">
@@ -84,7 +84,7 @@ export default function ContactCard() {
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-1  p-1 rounded-md bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+              className="w-full mt-1  p-1 rounded-md bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-shadow"
             />
           </div>
 
@@ -93,7 +93,7 @@ export default function ContactCard() {
             <input
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="w-full mt-1 p-1 rounded-md bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+              className="w-full mt-1 p-1 rounded-md bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-shadow"
             />
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function ContactCard() {
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full mt-1 p-3 rounded-md bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+            className="w-full mt-1 p-3 rounded-md bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-shadow"
             rows={3}
           />
         </div>

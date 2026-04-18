@@ -10,7 +10,7 @@ export default function ContactMe() {
         {/* Left side - Contact Info */}
         <div className="w-full max-w-md sm:max-w-lg lg:max-w-none lg:w-1/2 flex flex-col justify-center space-y-6 sm:space-y-8">
           <div className="space-y-3 sm:space-y-4 text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-blue-500">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-blue-400">
               Let's
               <br />
               <span className="text-blue-400 lg:text-7xl">CONNECT</span>
