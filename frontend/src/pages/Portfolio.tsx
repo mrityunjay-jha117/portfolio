@@ -12,8 +12,20 @@ import BlogPage from "./BlogPage";
 import SkillsMarquee from "./SkillsMarquee";
 import PortfolioSection from "./components/Three js components/car_model_animation/canvas_setter";
 import AnimatedModel from "./components/Three js components/car_model_animation/animated_model";
-
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
+interface SpringConfig {
+  damping: number; // Controls how quickly the animation settles
+  stiffness: number; // Controls the spring stiffness
+  mass: number; // Controls the virtual mass of the animated object
+  restDelta: number; // Controls the threshold at which animation is considered complete
+}
 export default function Portfolio() {
+  const defaultSpringConfig: SpringConfig = {
+    damping: 45,
+    stiffness: 400,
+    mass: 1,
+    restDelta: 0.001,
+  };
   const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -42,7 +54,7 @@ export default function Portfolio() {
   return (
     <div className="relative bg-gray-900 w-full min-h-screen">
       {/* Desktop Sidenav - Hidden on mobile */}
-
+      <SmoothCursor springConfig={defaultSpringConfig} />
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
