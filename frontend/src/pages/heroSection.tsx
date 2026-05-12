@@ -1,6 +1,6 @@
 import RapierPhysics from "./components/Three js components/ball animation/rapier";
 import { motion } from "framer-motion";
-
+import { HyperText } from "@/components/ui/hyper-text";
 export default function Landing_Page() {
   const container = {
     hidden: { opacity: 0 },
@@ -19,14 +19,14 @@ export default function Landing_Page() {
   return (
     <div
       id="home-section"
-      className="h-screen w-full mx-auto text-white flex flex-row items-center justify-center select-none"
+      className="relative h-screen w-full mx-auto text-white flex flex-row items-center justify-center select-none"
     >
-      {/* Physics layer above hero content but below UI elements */}
-      <div className="hidden lg:block absolute inset-0 z-30">
+      {/* Physics layer - put below UI but give it pointer events */}
+      <div className="hidden lg:block absolute inset-0 z-10">
         <RapierPhysics />
       </div>
-      {/* Content below physics layer - Centered container */}
-      <div className="flex flex-col my-30 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36  ">
+      {/* Content above physics layer - Wrapper is pointer-events-none so we can click through empty space */}
+      <div className="flex flex-col my-30 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 relative z-20 pointer-events-none">
         <motion.div
           className="max-w-sm mx-auto sm:mx-0 sm:max-w-md md:max-w-lg lg:max-w-4xl w-full text-center lg:text-left lg:w-3/5"
           variants={container}
@@ -37,22 +37,24 @@ export default function Landing_Page() {
           {/* Main heading with consistent sizing */}
           <motion.h1
             variants={item}
-            className="text-md sm:text-2xl md:text-3xl text-white font-black mb-3 sm:mb-4 lg:mb-6 text-center lg:text-left"
+            className="text-md sm:text-2xl md:text-3xl text-white font-black mb-3 sm:mb-4 lg:mb-6 text-center lg:text-left pointer-events-auto"
           >
-            FULL STACK WEB DEVELOPER
-            <br />
-            <motion.span
+            <HyperText variants={item} duration={1000} delay={0}>
+              FULL STACK WEB DEVELOPER
+            </HyperText>
+
+            <motion.div
               variants={item}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-blue-400 font-black block mt-2 sm:mt-3"
             >
               Mrityunjay Jha
-            </motion.span>
+            </motion.div>
           </motion.h1>
 
           {/* Description with improved wording and sizing */}
           <motion.p
             variants={item}
-            className="w-full lg:w-7/8 text-sm lg:text-lg sm:mb-6 lg:mb-8 leading-relaxed text-center lg:text-left "
+            className="w-full lg:w-7/8 text-sm lg:text-lg sm:mb-6 lg:mb-8 leading-relaxed text-center lg:text-left pointer-events-auto"
           >
             I design and build polished web experiences — from performant
             frontends and scalable backends to immersive 3D scenes. I care about
@@ -64,13 +66,13 @@ export default function Landing_Page() {
           {/* Location with subtle entrance */}
           <motion.h2
             variants={item}
-            className="text-sm sm:text-base text-blue-400 md:text-lg font-medium sm:mb-8 lg:mb-10 text-center lg:text-left tracking-wider"
+            className="text-sm sm:text-base text-blue-400 md:text-lg font-medium sm:mb-8 lg:mb-10 text-center lg:text-left tracking-wider pointer-events-auto"
           >
             New Delhi , INDIA
           </motion.h2>
 
           {/* Buttons with improved layout and sizing + motion hover */}
-          <div className="flex h-8 sm:h-10 flex-row relative w-4/5 mx-auto sm:mr-auto sm:ml-0 z-[100] justify-center lg:justify-start items-center gap-3 sm:gap-6 mt-5 ">
+          <div className="flex h-8 sm:h-10 flex-row relative w-4/5 mx-auto sm:mr-auto sm:ml-0 z-[100] justify-center lg:justify-start items-center gap-3 sm:gap-6 mt-5 pointer-events-auto">
             <motion.a
               variants={item}
               href="https://drive.google.com/file/d/1pszshrx1FGB3yUIYwUOMrDXJEaye1Mpl/view?usp=drive_link"
