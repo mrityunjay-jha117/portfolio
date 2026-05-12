@@ -172,19 +172,19 @@ export default function SkillsMarquee() {
       }}
     >
       <ScrollVelocityContainer className="w-full space-y-6 sm:space-y-10">
-        <ScrollVelocityRow baseVelocity={3} direction={1} className="py-2">
+        <ScrollVelocityRow baseVelocity={6} direction={1} className="py-2">
           {part1.map((item, idx) => (
             <SkillCard key={`p1-${idx}`} item={item} idx={idx} />
           ))}
         </ScrollVelocityRow>
         
-        <ScrollVelocityRow baseVelocity={3} direction={-1} className="py-2">
+        <ScrollVelocityRow baseVelocity={6} direction={-1} className="py-2">
           {part2.map((item, idx) => (
             <SkillCard key={`p2-${idx}`} item={item} idx={idx} />
           ))}
         </ScrollVelocityRow>
 
-        <ScrollVelocityRow baseVelocity={3} direction={1} className="py-2">
+        <ScrollVelocityRow baseVelocity={6} direction={1} className="py-2">
           {part3.map((item, idx) => (
             <SkillCard key={`p3-${idx}`} item={item} idx={idx} />
           ))}
