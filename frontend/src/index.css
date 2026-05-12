@@ -59,7 +59,7 @@
 }
 
 .marquee-row {
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
@@ -71,16 +71,16 @@
 }
 
 .marquee-row-slow .marquee-track {
-  /* slowed from 30s -> 45s for gentler motion */
-  animation: marquee-left 60s linear infinite;
+  /* slowed down */
+  animation: marquee-left 200s linear infinite;
 }
 .marquee-row-fast .marquee-track {
-  /* slowed from 22s -> 34s; still faster than slow row but less aggressive */
-  animation: marquee-left 45s linear infinite;
+  /* slowed down */
+  animation: marquee-left 400s linear infinite;
 }
 .marquee-row-reverse .marquee-track {
-  /* slowed from 30s -> 45s to match slow row */
-  animation: marquee-right 60s linear infinite;
+  /* slowed down */
+  animation: marquee-right 400s linear infinite;
 }
 
 /* Duplicate content technique: ensure content repeats seamlessly by placing two copies inline */

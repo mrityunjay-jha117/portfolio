@@ -139,9 +139,9 @@ export default function SkillsMarquee() {
   const duplicatedSkills = useMemo(() => [...skills, ...skills], [skills]);
 
   return (
-    <div
+    <div        
       id="skills-section"
-      className="h-full w-full mb-20 overflow-hidden bg-transparent text-white py-8 sm:py-12 lg:py-16 select-none"
+      className="h-full w-full overflow-y-auto overflow-visible bg-transparent text-white py-8 sm:py-12 lg:py-16 select-none"
     >
       {/* Lightweight Background Accents (no heavy blur/pulse) */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
@@ -150,13 +150,13 @@ export default function SkillsMarquee() {
       </div>
 
       {/* Horizontal Marquee Container */}
-      <div className="relative overflow-hidden py-4">
+      <div className="relative overflow-hidden py-20">
         {/* Gradient Overlays for fade effect */}
         <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 lg:w-150 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 lg:w-150 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none" />
 
         {/* Multiple Rows of Marquee - CSS driven for performance */}
-        <div className="space-y-4">
+        <div className="space-y-6 transform -rotate-6 scale-110 md:scale-105">
           <div className="marquee-row marquee-row-slow select-none">
             <div className="marquee-track flex gap-6">
               {duplicatedSkills.map((skill, index) => (
@@ -175,18 +175,6 @@ export default function SkillsMarquee() {
                 <SkillCard
                   key={`row2-${index}`}
                   uniqueId={`row2-${index}`}
-                  skill={skill}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="marquee-row marquee-row-fast select-none">
-            <div className="marquee-track flex gap-6">
-              {duplicatedSkills.map((skill, index) => (
-                <SkillCard
-                  key={`row3-${index}`}
-                  uniqueId={`row3-${index}`}
                   skill={skill}
                 />
               ))}
@@ -211,14 +199,17 @@ const SkillCard = memo(function SkillCard({
   return (
     <div
       className="relative items-center justify-center flex-shrink-0"
-      style={{ width: "140px", height: "100px" }}
+      style={{ width: "200px", height: "200px" }}
     >
       <div className="absolute inset-0 transform-gpu will-change-transform animate-slow-float">
-        <div className="group relative h-full w-full rounded-xl overflow-hidden shadow-lg">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 to-gray-800/40 border border-gray-700/30 transition-colors duration-300" />
+        <div className="group relative h-full w-full rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(0,0,0,0.9),0_0_20px_rgba(255,255,255,0.15)] hover:border-gray-500">
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 to-gray-800/40 border border-gray-700/30 transition-all duration-500 group-hover:from-black group-hover:to-gray-900 group-hover:border-gray-400/40" />
+          
+          {/* Subtle inner shine on hover */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-tr from-transparent via-white/5 to-transparent transition-opacity duration-500 pointer-events-none" />
 
           <div className="relative h-full flex flex-col items-center justify-center p-3">
-            <div className="w-10 h-10 mb-2 relative transform-gpu transition-transform duration-700">
+            <div className="w-20 h-20 mb-2 relative transform-gpu transition-transform duration-700">
               <img
                 src={skill.icon}
                 alt={skill.name}
