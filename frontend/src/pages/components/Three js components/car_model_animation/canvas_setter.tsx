@@ -14,7 +14,7 @@ export default function PortfolioSection({
 }: PortfolioSectionProps) {
   return (
     <div className="h-full w-full flex items-end justify-end">
-      <Canvas camera={{ position: cameraPosition, fov }}>{Scene}</Canvas>
+      <Canvas style={{ touchAction: "auto" }} camera={{ position: cameraPosition, fov }}>{Scene}</Canvas>
     </div>
   );
 }

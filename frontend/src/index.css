@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+html, body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
 @-webkit-keyframes blur-out-expand-fwd {
   0% {
     -webkit-transform: scale(1) translateZ(0);

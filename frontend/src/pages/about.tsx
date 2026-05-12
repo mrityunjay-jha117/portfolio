@@ -1,3 +1,4 @@
+import { NumberTicker } from "@/components/ui/number-ticker";
 export default function About() {
   return (
     <div
@@ -55,7 +56,10 @@ export default function About() {
               </a>
               <span className=" ml-2 text-emerald-400">
                 Specialist{" "}
-                <span className="text-gray-200 font-medium">1371</span>
+                <span className="text-gray-200 font-medium">
+                  {" "}
+                  <NumberTicker value={1371} />
+                </span>
               </span>
             </div>
 
@@ -69,7 +73,10 @@ export default function About() {
                 LeetCode
               </a>
               <span className="text-red-500 ml-2">
-                KNIGHT <span className="text-gray-400 font-medium">1860</span>
+                KNIGHT{" "}
+                <span className="text-gray-400 font-medium">
+                  <NumberTicker value={1860} />
+                </span>
               </span>
             </div>
             <div className="text-sm sm:text-base text-orange-400">

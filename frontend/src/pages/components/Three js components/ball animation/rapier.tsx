@@ -326,7 +326,7 @@ const RapierPhysics: React.FC<RapierPhysicsProps> = () => {
   return (
     <div className="w-full h-full">
       <Canvas
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%", touchAction: "auto" }}
         camera={{ position: [0, 0, 5], fov: 60 }}
         gl={{
           toneMapping: THREE.ACESFilmicToneMapping,

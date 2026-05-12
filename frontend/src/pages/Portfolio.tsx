@@ -18,18 +18,14 @@ export default function Portfolio() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  // Scroll detection - listen to the actual scrolling container
+  // Scroll detection - listen to window scroll
   useEffect(() => {
-    const handleScroll = (e: Event) => {
-      const target = e.target as HTMLElement;
-      setShowScrollTop(target.scrollTop > 300);
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
     };
 
-    const scrollContainer = document.querySelector(".overflow-y-auto");
-    if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", handleScroll);
-      return () => scrollContainer.removeEventListener("scroll", handleScroll);
-    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const openGame = () => {
@@ -37,19 +33,14 @@ export default function Portfolio() {
   };
 
   const scrollToTop = () => {
-    const scrollContainer = document.querySelector(
-      ".overflow-y-auto",
-    ) as HTMLElement;
-    if (scrollContainer) {
-      scrollContainer.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <div className="relative bg-gray-900 w-full h-screen overflow-x-hidden scrollbar-hide overflow-y-auto snap-y snap-mandatory scroll-smooth">
+    <div className="relative bg-gray-900 w-full min-h-screen">
       {/* Desktop Sidenav - Hidden on mobile */}
 
       <motion.div

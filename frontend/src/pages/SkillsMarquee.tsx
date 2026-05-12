@@ -1,10 +1,16 @@
-import { useMemo, memo } from "react";
+import {
+  ScrollVelocityContainer,
+  ScrollVelocityRow,
+} from "@/components/ui/scroll-based-velocity";
+
+import { useMemo } from "react";
 
 interface Skill {
   name: string;
   icon?: string;
   category?: string;
 }
+
 
 export default function SkillsMarquee() {
   const skills: Skill[] = useMemo(() => {
@@ -134,100 +140,56 @@ export default function SkillsMarquee() {
 
     return list;
   }, []);
+  const partSize = Math.ceil(skills.length / 3);
+  const part1 = skills.slice(0, partSize);
+  const part2 = skills.slice(partSize, partSize * 2);
+  const part3 = skills.slice(partSize * 2);
 
-  // Reduced duplication for better performance (2x instead of 3x)
-  const duplicatedSkills = useMemo(() => [...skills, ...skills], [skills]);
-
-  return (
-    <div        
-      id="skills-section"
-      className="h-full w-full overflow-y-auto overflow-visible bg-transparent text-white py-8 sm:py-12 lg:py-16 select-none"
-    >
-      {/* Lightweight Background Accents (no heavy blur/pulse) */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-1/4 -left-1/2 w-[48rem] h-[48rem] bg-gradient-to-br from-blue-800/12 to-transparent rounded-full blur-6xl" />
-        <div className="absolute bottom-1/4 -right-1/2 w-[48rem] h-[48rem] bg-gradient-to-br from-purple-800/12 to-transparent rounded-full blur-6xl" />
-      </div>
-
-      {/* Horizontal Marquee Container */}
-      <div className="relative overflow-hidden py-20">
-        {/* Gradient Overlays for fade effect */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 lg:w-150 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 lg:w-150 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none" />
-
-        {/* Multiple Rows of Marquee - CSS driven for performance */}
-        <div className="space-y-6 transform -rotate-6 scale-110 md:scale-105">
-          <div className="marquee-row marquee-row-slow select-none">
-            <div className="marquee-track flex gap-6">
-              {duplicatedSkills.map((skill, index) => (
-                <SkillCard
-                  key={`row1-${index}`}
-                  uniqueId={`row1-${index}`}
-                  skill={skill}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="marquee-row marquee-row-reverse select-none">
-            <div className="marquee-track flex gap-6">
-              {duplicatedSkills.map((skill, index) => (
-                <SkillCard
-                  key={`row2-${index}`}
-                  uniqueId={`row2-${index}`}
-                  skill={skill}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Memoized Skill Card Component for better performance
-interface SkillCardProps {
-  uniqueId: string;
-  skill: Skill;
-}
-
-const SkillCard = memo(function SkillCard({
-  uniqueId: _uniqueId,
-  skill,
-}: SkillCardProps) {
-  return (
+  const SkillCard = ({ item, idx }: { item: Skill; idx: number }) => (
     <div
-      className="relative items-center justify-center flex-shrink-0"
-      style={{ width: "200px", height: "200px" }}
+      key={idx}
+      className="group relative flex h-28 w-40 sm:h-36 sm:w-48 mx-4 sm:mx-6 flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl bg-white/4 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-105 hover:bg-white/10  hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
     >
-      <div className="absolute inset-0 transform-gpu will-change-transform animate-slow-float">
-        <div className="group relative h-full w-full rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(0,0,0,0.9),0_0_20px_rgba(255,255,255,0.15)] hover:border-gray-500">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 to-gray-800/40 border border-gray-700/30 transition-all duration-500 group-hover:from-black group-hover:to-gray-900 group-hover:border-gray-400/40" />
-          
-          {/* Subtle inner shine on hover */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-tr from-transparent via-white/5 to-transparent transition-opacity duration-500 pointer-events-none" />
-
-          <div className="relative h-full flex flex-col items-center justify-center p-3">
-            <div className="w-20 h-20 mb-2 relative transform-gpu transition-transform duration-700">
-              <img
-                src={skill.icon}
-                alt={skill.name}
-                className="w-full h-full object-contain pointer-events-none select-none"
-                loading="lazy"
-                draggable="false"
-              />
-            </div>
-
-            <h3 className="text-white font-bold text-sm text-center mb-1">
-              {skill.name}
-            </h3>
-          </div>
-
-          <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-blue-400/0 transition-all duration-300 rounded-tl-2xl" />
-          <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-purple-500/0 transition-all duration-300 rounded-br-2xl" />
-        </div>
-      </div>
+      <img
+        src={item.icon}
+        alt={item.name}
+        loading="lazy"
+        decoding="async"
+        className="h-10 w-10 sm:h-14 sm:w-14 object-contain transition-transform duration-300 group-hover:scale-110"
+      />
+      <span className="text-xs sm:text-sm font-semibold tracking-wider text-gray-400 transition-colors duration-300 group-hover:text-white">
+        {item.name}
+      </span>
     </div>
   );
-});
+
+  return (
+    <div 
+      className="relative flex w-full h-[100vh] flex-col items-center justify-center overflow-hidden"
+      style={{
+        maskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+      }}
+    >
+      <ScrollVelocityContainer className="w-full space-y-6 sm:space-y-10">
+        <ScrollVelocityRow baseVelocity={3} direction={1} className="py-2">
+          {part1.map((item, idx) => (
+            <SkillCard key={`p1-${idx}`} item={item} idx={idx} />
+          ))}
+        </ScrollVelocityRow>
+        
+        <ScrollVelocityRow baseVelocity={3} direction={-1} className="py-2">
+          {part2.map((item, idx) => (
+            <SkillCard key={`p2-${idx}`} item={item} idx={idx} />
+          ))}
+        </ScrollVelocityRow>
+
+        <ScrollVelocityRow baseVelocity={3} direction={1} className="py-2">
+          {part3.map((item, idx) => (
+            <SkillCard key={`p3-${idx}`} item={item} idx={idx} />
+          ))}
+        </ScrollVelocityRow>
+      </ScrollVelocityContainer>
+    </div>
+  );
+}
