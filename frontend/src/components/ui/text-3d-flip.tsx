@@ -53,8 +53,8 @@ const ROTATION_MAP = {
 
 const DEFAULT_TRANSITION: ValueAnimationTransition = {
   type: "spring",
-  damping: 30,
-  stiffness: 300,
+  damping: 20,
+  stiffness: 120,
 }
 
 interface Text3DFlipProps {
@@ -75,7 +75,7 @@ const Text3DFlip = ({
   className,
   textClassName,
   flipTextClassName,
-  staggerDuration = 0.05,
+  staggerDuration = 0.08,
   staggerFrom = "first",
   transition = DEFAULT_TRANSITION,
   rotateDirection = "right",
