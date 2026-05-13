@@ -269,7 +269,7 @@ export default function Portfolio() {
 
       <div className="w-full flex flex-col gap-0   ">
         <motion.div
-          className="snap-start min-h-screen"
+          className="snap-start h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -279,7 +279,7 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="relative snap-start flex flex-row min-h-screen"
+          className="relative snap-start flex flex-row h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -302,7 +302,7 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
+          className="snap-start h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -312,7 +312,7 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
+          className="snap-start h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -322,7 +322,7 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
+          className="snap-start h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -332,7 +332,7 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen w-full"
+          className="snap-start h-auto lg:min-h-screen w-full"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -342,7 +342,7 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
+          className="snap-start h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
