@@ -36,7 +36,7 @@ export default function Landing_Page() {
   return (
     <div
       id="home-section"
-      className="relative h-screen w-full mx-auto text-white flex flex-row items-center justify-center select-none"
+      className="relative min-h-screen lg:h-screen pt-24 pb-12 lg:py-0 w-full mx-auto text-white flex flex-col justify-center select-none"
     >
       {/* Physics layer - put below UI but give it pointer events */}
       {isDesktop && (
@@ -91,14 +91,14 @@ export default function Landing_Page() {
           </motion.h2>
 
           {/* Buttons with improved layout and sizing + motion hover */}
-          <div className="flex h-8 sm:h-10 flex-row relative w-4/5 mx-auto sm:mr-auto sm:ml-0 z-[100] justify-center lg:justify-start items-center gap-3 sm:gap-6 mt-5 pointer-events-auto">
+          <div className="flex h-auto sm:h-10 flex-col sm:flex-row relative w-[85%] sm:w-4/5 mx-auto lg:mx-0 z-[100] justify-center lg:justify-start items-center gap-3 sm:gap-6 mt-6 sm:mt-5 pointer-events-auto">
             <motion.a
               variants={item}
               href="https://drive.google.com/file/d/1pszshrx1FGB3yUIYwUOMrDXJEaye1Mpl/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
-              className="w-full font-bold rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-red-400 hover:bg-red-500 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm shadow-lg"
+              className="w-full font-bold rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 py-3 sm:py-0 h-auto sm:h-full z-[25] relative cursor-pointer bg-red-400 hover:bg-red-500 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm sm:text-base shadow-lg"
             >
               Resume
             </motion.a>
@@ -116,7 +116,7 @@ export default function Landing_Page() {
                   });
                 }
               }}
-              className="w-full font-bold rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-blue-400 hover:bg-blue-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm shadow-lg"
+              className="w-full font-bold rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 py-3 sm:py-0 h-auto sm:h-full z-[25] relative cursor-pointer bg-blue-400 hover:bg-blue-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm sm:text-base shadow-lg"
             >
               Contact Me
             </motion.button>

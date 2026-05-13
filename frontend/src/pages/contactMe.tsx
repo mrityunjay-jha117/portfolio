@@ -23,7 +23,7 @@ export default function ContactMe() {
             discussing new opportunities and creative ideas.
           </p>
 
-          <div className="flex flex-row justify-around space-y-3 sm:space-y-4">
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-around space-y-6 sm:space-y-0 gap-2 sm:gap-4">
             <div className="flex flex-row items-center space-x-3 sm:space-x-4">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
                 <svg

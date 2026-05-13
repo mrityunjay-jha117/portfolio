@@ -67,7 +67,7 @@ export default function Projects() {
   }, [getSizeClasses, projectsData]);
 
   return (
-    <div className="h-screen w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center py-8 sm:py-12 select-none">
+    <div className="min-h-screen lg:h-screen w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center py-12 sm:py-16 select-none">
       <div className="flex items-start justify-start w-full text-left">
         <h1 className="text-3xl lg:text-6xl xl:text-8xl text-blue-400 font-black tracking-tight">
           Projects
@@ -86,8 +86,8 @@ export default function Projects() {
             viewport={{ once: true, amount: 0.2 }} // Reduced threshold
             transition={{ duration: 0.6 }} // Faster duration
           >
-            {/* Optimized card layout */}
-            <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 justify-center items-center">
+            {/* Optimized card layout - vertical stack on mobile */}
+            <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-3 md:gap-4 py-4">
               {" "}
               {/* Reduced gaps */}
               {cardData.map((card) => (
@@ -101,7 +101,7 @@ export default function Projects() {
                     delay: card.delay,
                     ease: "easeOut", // Simpler easing
                   }}
-                  className={`relative rounded-xl sm:rounded-2xl lg:rounded-3xl bg-white shadow-lg will-change-transform transform-gpu ${
+                  className={`relative rounded-2xl lg:rounded-3xl bg-white shadow-xl will-change-transform transform-gpu ${
                     card.sizeClass
                   } ${card.isComingSoon ? "hidden sm:flex" : ""}`} // Hide coming soon card on mobile
                   style={{ backfaceVisibility: "hidden" }} // Performance optimization

@@ -64,8 +64,8 @@ export default function Portfolio() {
 
   return (
     <div className="relative bg-gray-900 w-full min-h-screen">
-      {/* Desktop Sidenav - Hidden on mobile */}
-      <SmoothCursor springConfig={defaultSpringConfig} />
+      {/* Desktop Cursor and Sidenav - Hidden on mobile */}
+      {isDesktop && <SmoothCursor springConfig={defaultSpringConfig} />}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
