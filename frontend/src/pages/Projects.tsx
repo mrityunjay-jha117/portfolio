@@ -1,8 +1,17 @@
 import { motion } from "framer-motion";
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useState, useEffect } from "react";
 import ProjectCard from "../components/ProjectCard";
 
 export default function Projects() {
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Project data array with live links and GitHub repo links
   const projectsData = [
     {
@@ -93,13 +102,21 @@ export default function Projects() {
               {cardData.map((card) => (
                 <motion.div
                   key={card.id}
-                  initial={{ scale: 0.95, opacity: 0 }} // Less dramatic initial state
-                  whileInView={{ scale: 1, opacity: 1 }}
+                  initial={
+                    isDesktop 
+                      ? { scale: 0.95, opacity: 0 } 
+                      : { x: card.id % 2 === 0 ? -30 : 30, opacity: 0 } // Mobile alternating slide-in
+                  } 
+                  whileInView={
+                    isDesktop 
+                      ? { scale: 1, opacity: 1 } 
+                      : { x: 0, opacity: 1 }
+                  }
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{
-                    duration: 0.4, // Faster duration
-                    delay: card.delay,
-                    ease: "easeOut", // Simpler easing
+                    duration: isDesktop ? 0.4 : 0.5, 
+                    delay: isDesktop ? card.delay : card.id * 0.15, // Smooth mobile stagger
+                    ease: "easeOut", 
                   }}
                   className={`relative rounded-2xl lg:rounded-3xl bg-white shadow-xl will-change-transform transform-gpu ${
                     card.sizeClass
