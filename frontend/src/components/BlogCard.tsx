@@ -22,7 +22,7 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
       onClick={() => navigate(`/blogs/${blog.id}`)}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer h-56 flex-1 min-w-[280px] max-w-[calc(33.333%-1rem)]"
+      className="group relative rounded-2xl overflow-hidden cursor-pointer h-36 sm:h-48 lg:h-56 w-full"
     >
       {/* Background Image - Full Card */}
       <div className="absolute inset-0">

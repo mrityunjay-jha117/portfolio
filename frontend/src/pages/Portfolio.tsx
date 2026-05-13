@@ -51,6 +51,23 @@ export default function Portfolio() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Modular and device-optimized animation variants
+  const sectionVariants = {
+    hidden: isDesktop 
+      ? { opacity: 0, y: 60 } // Desktop: Standard slide up
+      : { opacity: 0, scale: 0.95, y: 20 }, // Mobile: Smooth zoom-in with minor slide (better for mobile GPU)
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { 
+        duration: isDesktop ? 0.7 : 0.6, 
+        ease: "easeOut" as const,
+        delay: isDesktop ? 0.1 : 0 // No delay on mobile to feel more responsive
+      }
+    }
+  };
+
   const openGame = () => {
     navigate("/game");
   };
@@ -64,8 +81,8 @@ export default function Portfolio() {
 
   return (
     <div className="relative bg-gray-900 w-full min-h-screen">
-      {/* Desktop Sidenav - Hidden on mobile */}
-      <SmoothCursor springConfig={defaultSpringConfig} />
+      {/* Desktop Cursor and Sidenav - Hidden on mobile */}
+      {isDesktop && <SmoothCursor springConfig={defaultSpringConfig} />}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
@@ -252,21 +269,21 @@ export default function Portfolio() {
 
       <div className="w-full flex flex-col gap-0   ">
         <motion.div
-          className="snap-start min-h-screen"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="snap-start h-auto lg:min-h-screen"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
           <First />
         </motion.div>
 
         <motion.div
-          className="relative snap-start flex flex-row min-h-screen"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="relative snap-start flex flex-row h-auto lg:min-h-screen"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
           <Third />
           {isDesktop && (
@@ -285,51 +302,51 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="snap-start h-auto lg:min-h-screen"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
           <Experience />
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="snap-start h-auto lg:min-h-screen"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
           <Second />
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="snap-start h-auto lg:min-h-screen"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
           <BlogPage />
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen w-full"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="snap-start h-auto lg:min-h-screen w-full"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
           <SkillsMarquee />
         </motion.div>
 
         <motion.div
-          className="snap-start min-h-screen"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="snap-start h-auto lg:min-h-screen"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
           <Sixth />
         </motion.div>

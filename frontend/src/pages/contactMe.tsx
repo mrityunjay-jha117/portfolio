@@ -1,4 +1,5 @@
 import ContactCard from "../components/ContactCard";
+import Text3DFlip from "@/components/ui/text-3d-flip";
 
 export default function ContactMe() {
   return (
@@ -9,21 +10,25 @@ export default function ContactMe() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12">
         {/* Left side - Contact Info */}
         <div className="w-full max-w-md sm:max-w-lg lg:max-w-none lg:w-1/2 flex flex-col justify-center space-y-6 sm:space-y-8">
-          <div className="space-y-3 sm:space-y-4 text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-blue-400">
-              Let's
-              <br />
-              <span className="text-blue-400 lg:text-7xl">CONNECT</span>
-            </h1>
-            <div className="w-1/3 h-1 bg-red-400 rounded-full mx-auto lg:mx-0"></div>
+          <div className="space-y-3 sm:space-y-4 text-left">
+            <Text3DFlip
+              as="h1"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-blue-400"
+              textClassName="bg-gray-900 text-blue-400"
+              flipTextClassName="bg-gray-900 text-blue-400"
+              rotateDirection="top"
+            >
+              Let's CONNECT
+            </Text3DFlip>
+            <div className="w-1/3 h-1 bg-red-400 rounded-full mx-0"></div>
           </div>
 
-          <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed text-center lg:text-left">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed text-left">
             Have a project in mind? Want to collaborate? I'm always open to
             discussing new opportunities and creative ideas.
           </p>
 
-          <div className="flex flex-row justify-around space-y-3 sm:space-y-4">
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-around space-y-6 sm:space-y-0 gap-2 sm:gap-4">
             <div className="flex flex-row items-center space-x-3 sm:space-x-4">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
                 <svg

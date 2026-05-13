@@ -60,7 +60,9 @@ interface HyperTextProps extends Omit<MotionProps, "children"> {
 }
 
 const DEFAULT_CHARACTER_SET = Object.freeze(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-[]{}|;':,./<>?~` ".split(
+    "",
+  ),
 ) as readonly string[];
 
 const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
@@ -68,8 +70,8 @@ const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
 export function HyperText({
   children,
   className,
-  duration = 800,
-  delay = 0,
+  duration = 2000,
+  delay = 2,
   as: Component = "div",
   startOnView = true,
   animateOnHover = true,
@@ -84,11 +86,23 @@ export function HyperText({
   const [isAnimating, setIsAnimating] = useState(false);
   const iterationCount = useRef(0);
   const elementRef = useRef<HTMLElement | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
+
+  const triggerAnimation = () => {
+    // Cancel any running animation
+    if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+    iterationCount.current = 0;
+    setIsAnimating(false);
+    // Use microtask to ensure state resets before re-triggering
+    requestAnimationFrame(() => setIsAnimating(true));
+  };
 
   const handleAnimationTrigger = () => {
-    if (animateOnHover && !isAnimating) {
-      iterationCount.current = 0;
-      setIsAnimating(true);
+    if (animateOnHover) {
+      triggerAnimation();
     }
   };
 
@@ -96,7 +110,7 @@ export function HyperText({
   useEffect(() => {
     if (!startOnView) {
       const startTimeout = setTimeout(() => {
-        setIsAnimating(true);
+        triggerAnimation();
       }, delay);
       return () => clearTimeout(startTimeout);
     }
@@ -105,11 +119,8 @@ export function HyperText({
       ([entry]) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
-            iterationCount.current = 0;
-            setIsAnimating(true);
+            triggerAnimation();
           }, delay);
-        } else {
-          setIsAnimating(false);
         }
       },
       { threshold: 0.1, rootMargin: "-10% 0px -10% 0px" },
@@ -124,8 +135,6 @@ export function HyperText({
 
   // Handle scramble animation
   useEffect(() => {
-    let animationFrameId: number | null = null;
-
     if (isAnimating) {
       const maxIterations = children.length;
       const startTime = performance.now();
@@ -136,8 +145,8 @@ export function HyperText({
 
         iterationCount.current = progress * maxIterations;
 
-        setDisplayText((currentText) =>
-          currentText.map((letter, index) =>
+        setDisplayText(
+          children.split("").map((letter, index) =>
             letter === " "
               ? letter
               : index <= iterationCount.current
@@ -147,18 +156,21 @@ export function HyperText({
         );
 
         if (progress < 1) {
-          animationFrameId = requestAnimationFrame(animate);
+          animationFrameRef.current = requestAnimationFrame(animate);
         } else {
+          // Ensure final text is always correct
+          setDisplayText(children.split(""));
           setIsAnimating(false);
+          animationFrameRef.current = null;
         }
       };
 
-      animationFrameId = requestAnimationFrame(animate);
+      animationFrameRef.current = requestAnimationFrame(animate);
     }
 
     return () => {
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId);
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
       }
     };
   }, [children, duration, isAnimating, characterSet]);
@@ -166,7 +178,7 @@ export function HyperText({
   return (
     <MotionComponent
       ref={elementRef}
-      className={cn("text-4xl font-bold", className)}
+      className={cn("", className)}
       onMouseEnter={handleAnimationTrigger}
       {...props}
     >
@@ -174,7 +186,7 @@ export function HyperText({
         {displayText.map((letter, index) => (
           <motion.span
             key={index}
-            className={cn(letter === " " ? "w-3 inline-block" : "")}
+            className={cn("inline-block", letter === " " ? "w-3" : "")}
           >
             {letter.toUpperCase()}
           </motion.span>

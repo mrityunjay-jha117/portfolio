@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import BlogCard, { type Blog } from "../components/BlogCard";
+import Text3DFlip from "@/components/ui/text-3d-flip";
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -69,19 +70,25 @@ export default function BlogPage() {
         transition={{ duration: 0.6 }}
         className="max-w-7xl mx-auto mb-12 px-4 sm:px-6 lg:px-8"
       >
-        <h1 className="text-4xl md:text-5xl lg:text-8xl font-black mb-3 text-blue-400 ">
+        <Text3DFlip
+          as="h1"
+          className="text-4xl md:text-5xl lg:text-8xl font-black mb-3 text-blue-400"
+          textClassName="bg-gray-900 text-blue-400"
+          flipTextClassName="bg-gray-900 text-blue-400"
+          rotateDirection="top"
+        >
           BLOGS
-        </h1>
+        </Text3DFlip>
       </motion.div>
 
       {/* Blog Grid - Left Justified */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {loading ? (
-          <div className="flex flex-wrap gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-gray-800/50 rounded-2xl h-56 flex-1 min-w-[280px] max-w-[calc(33.333%-1rem)] animate-pulse"
+                className="bg-gray-800/50 rounded-2xl h-40 sm:h-56 animate-pulse"
               />
             ))}
           </div>
@@ -90,7 +97,7 @@ export default function BlogPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-wrap gap-6"
+            className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
           >
             {blogs.map((blog, index) => (
               <BlogCard key={blog.id} blog={blog} index={index} />
