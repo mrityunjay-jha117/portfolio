@@ -1,4 +1,5 @@
 import { NumberTicker } from "@/components/ui/number-ticker";
+import Text3DFlip from "@/components/ui/text-3d-flip";
 export default function About() {
   return (
     <div
@@ -7,9 +8,15 @@ export default function About() {
     >
       <div className="w-full max-w-md sm:max-w-lg lg:max-w-none lg:w-1/2">
         <div className="flex flex-col justify-center items-center lg:items-start w-full text-white">
-          <h1 className="text-3xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-blue-400 text-left mb-3 sm:mb-4">
+          <Text3DFlip
+            as="h1"
+            className="text-3xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-blue-400 text-left mb-3 sm:mb-4"
+            textClassName="bg-gray-900 text-blue-400"
+            flipTextClassName="bg-gray-900 text-blue-400"
+            rotateDirection="top"
+          >
             About Me
-          </h1>
+          </Text3DFlip>
           <h2 className="text-red-400 font-bold text-left mb-2 text-base sm:text-lg lg:text-xl leading-relaxed">
             UnderGraduate in Computer Science Engineering <br />
             <span className="text-red-400">Delhi College of Engineering</span>

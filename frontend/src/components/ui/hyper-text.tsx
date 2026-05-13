@@ -60,7 +60,9 @@ interface HyperTextProps extends Omit<MotionProps, "children"> {
 }
 
 const DEFAULT_CHARACTER_SET = Object.freeze(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-[]{}|;':,./<>?~` ".split(
+    "",
+  ),
 ) as readonly string[];
 
 const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
@@ -68,8 +70,8 @@ const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
 export function HyperText({
   children,
   className,
-  duration = 800,
-  delay = 0,
+  duration = 2000,
+  delay = 2,
   as: Component = "div",
   startOnView = true,
   animateOnHover = true,
@@ -166,7 +168,7 @@ export function HyperText({
   return (
     <MotionComponent
       ref={elementRef}
-      className={cn("text-4xl font-bold", className)}
+      className={cn("overflow-hidden py-2 text-4xl font-bold", className)}
       onMouseEnter={handleAnimationTrigger}
       {...props}
     >
@@ -174,7 +176,7 @@ export function HyperText({
         {displayText.map((letter, index) => (
           <motion.span
             key={index}
-            className={cn(letter === " " ? "w-3 inline-block" : "")}
+            className={cn("inline-block", letter === " " ? "w-3" : "")}
           >
             {letter.toUpperCase()}
           </motion.span>

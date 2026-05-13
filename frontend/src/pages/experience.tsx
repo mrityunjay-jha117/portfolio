@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Text3DFlip from "@/components/ui/text-3d-flip";
 
 const experiences = [
   {
@@ -44,9 +45,15 @@ export default function Experience() {
         transition={{ duration: 0.6 }}
         className="w-full mb-12"
       >
-        <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-blue-400 mb-2">
+        <Text3DFlip
+          as="h1"
+          className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-blue-400 mb-2"
+          textClassName="bg-gray-900 text-blue-400"
+          flipTextClassName="bg-gray-900 text-blue-400"
+          rotateDirection="top"
+        >
           Experience
-        </h1>
+        </Text3DFlip>
         <div className="h-2 w-24 bg-red-400 rounded-full" />
       </motion.div>
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import BlogCard, { type Blog } from "../components/BlogCard";
+import Text3DFlip from "@/components/ui/text-3d-flip";
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -69,9 +70,15 @@ export default function BlogPage() {
         transition={{ duration: 0.6 }}
         className="max-w-7xl mx-auto mb-12 px-4 sm:px-6 lg:px-8"
       >
-        <h1 className="text-4xl md:text-5xl lg:text-8xl font-black mb-3 text-blue-400 ">
+        <Text3DFlip
+          as="h1"
+          className="text-4xl md:text-5xl lg:text-8xl font-black mb-3 text-blue-400"
+          textClassName="bg-gray-900 text-blue-400"
+          flipTextClassName="bg-gray-900 text-blue-400"
+          rotateDirection="top"
+        >
           BLOGS
-        </h1>
+        </Text3DFlip>
       </motion.div>
 
       {/* Blog Grid - Left Justified */}

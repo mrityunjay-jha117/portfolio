@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useMemo, useCallback, useState, useEffect } from "react";
 import ProjectCard from "../components/ProjectCard";
+import Text3DFlip from "@/components/ui/text-3d-flip";
 
 export default function Projects() {
   const [isDesktop, setIsDesktop] = useState(true);
@@ -78,9 +79,15 @@ export default function Projects() {
   return (
     <div className="min-h-screen lg:h-screen w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center py-12 sm:py-16 select-none">
       <div className="flex items-start justify-start w-full text-left">
-        <h1 className="text-3xl lg:text-6xl xl:text-8xl text-blue-400 font-black tracking-tight">
+        <Text3DFlip
+          as="h1"
+          className="text-3xl lg:text-6xl xl:text-8xl text-blue-400 font-black tracking-tight"
+          textClassName="bg-gray-900 text-blue-400"
+          flipTextClassName="bg-gray-900 text-blue-400"
+          rotateDirection="top"
+        >
           Projects
-        </h1>
+        </Text3DFlip>
       </div>
 
       <div

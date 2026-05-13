@@ -1,6 +1,7 @@
 import RapierPhysics from "./components/Three js components/ball animation/rapier";
 import { motion } from "framer-motion";
 import { HyperText } from "@/components/ui/hyper-text";
+import Text3DFlip from "@/components/ui/text-3d-flip";
 import { useState, useEffect } from "react";
 
 export default function Landing_Page() {
@@ -62,12 +63,15 @@ export default function Landing_Page() {
               FULL STACK WEB DEVELOPER
             </HyperText>
 
-            <motion.div
-              variants={item}
+            <Text3DFlip
+              as="div"
               className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-blue-400 font-black block mt-2 sm:mt-3"
+              textClassName="bg-gray-900 text-blue-400"
+              flipTextClassName="bg-gray-900 text-blue-400"
+              rotateDirection="top"
             >
               Mrityunjay Jha
-            </motion.div>
+            </Text3DFlip>
           </motion.h1>
 
           {/* Description with improved wording and sizing */}
