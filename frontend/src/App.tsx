@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,22 +16,19 @@ import Overlay from "./pages/overlay";
 
 function AppRouter() {
   const location = useLocation();
-  // overlay shown initially, and whenever location.key changes
-  const [showOverlay, setShowOverlay] = useState(true);
+  // Overlay only on first mount — never again
+  const hasShownOverlay = useRef(false);
+  const [showOverlay, setShowOverlay] = useState(!hasShownOverlay.current);
 
-  useEffect(() => {
-    // show overlay on every route change
-    setShowOverlay(true);
-  }, [location.key]);
+  const handleOverlayFinish = () => {
+    hasShownOverlay.current = true;
+    setShowOverlay(false);
+  };
 
   return (
     <>
-      {showOverlay && (
-        // key by location.key so it remounts on each navigation
-        <Overlay key={location.key} onFinish={() => setShowOverlay(false)} />
-      )}
+      {showOverlay && <Overlay onFinish={handleOverlayFinish} />}
 
-      {/* When overlay is visible, it sits above routes and will hide itself when finished */}
       <Routes location={location}>
         <Route path="/" element={<Portfolio />} />
         <Route path="/game" element={<Game />} />

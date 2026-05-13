@@ -52,13 +52,13 @@ export default function Projects() {
   const getSizeClasses = useCallback((distance: number) => {
     switch (distance) {
       case 0: // Center card (largest)
-        return "w-full sm:w-1/4 h-48 sm:h-44 md:h-52 lg:h-72 xl:h-88"; // Increased mobile height from h-36 to h-48
+        return "h-40 sm:w-1/4 sm:h-44 md:h-52 lg:h-72 xl:h-88";
       case 1: // Adjacent cards (medium)
-        return "w-full sm:w-1/5 h-44 sm:h-40 md:h-48 lg:h-64 xl:h-80"; // Increased mobile height from h-32 to h-44
+        return "h-40 sm:w-1/5 sm:h-40 md:h-48 lg:h-64 xl:h-80";
       case 2: // Outer cards (smallest)
-        return "w-full sm:w-1/6 h-40 sm:h-36 md:h-44 lg:h-56 xl:h-72"; // Increased mobile height from h-28 to h-40
+        return "h-40 sm:w-1/6 sm:h-36 md:h-44 lg:h-56 xl:h-72";
       default:
-        return "w-full sm:w-1/6 h-40 sm:h-36 md:h-44 lg:h-56 xl:h-72"; // Increased mobile height from h-28 to h-40
+        return "h-40 sm:w-1/6 sm:h-36 md:h-44 lg:h-56 xl:h-72";
     }
   }, []);
 
@@ -95,10 +95,8 @@ export default function Projects() {
             viewport={{ once: true, amount: 0.2 }} // Reduced threshold
             transition={{ duration: 0.6 }} // Faster duration
           >
-            {/* Optimized card layout - vertical stack on mobile */}
-            <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-3 md:gap-4 py-4">
-              {" "}
-              {/* Reduced gaps */}
+            {/* 2-col grid on mobile, flex-row on sm+ */}
+            <div className="w-full grid grid-cols-2 sm:flex sm:flex-row justify-center items-center gap-4 sm:gap-3 md:gap-4 py-4">
               {cardData.map((card) => (
                 <motion.div
                   key={card.id}

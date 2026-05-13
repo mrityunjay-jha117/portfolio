@@ -77,11 +77,11 @@ export default function BlogPage() {
       {/* Blog Grid - Left Justified */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {loading ? (
-          <div className="flex flex-wrap gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-gray-800/50 rounded-2xl h-56 flex-1 min-w-[280px] max-w-[calc(33.333%-1rem)] animate-pulse"
+                className="bg-gray-800/50 rounded-2xl h-40 sm:h-56 animate-pulse"
               />
             ))}
           </div>
@@ -90,7 +90,7 @@ export default function BlogPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-wrap gap-6"
+            className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
           >
             {blogs.map((blog, index) => (
               <BlogCard key={blog.id} blog={blog} index={index} />
