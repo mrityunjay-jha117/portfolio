@@ -1,7 +1,24 @@
 import RapierPhysics from "./components/Three js components/ball animation/rapier";
 import { motion } from "framer-motion";
 import { HyperText } from "@/components/ui/hyper-text";
+import { useState, useEffect } from "react";
+
 export default function Landing_Page() {
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // Tailwind 'lg' breakpoint is 1024px
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    // Check initial screen size
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -22,9 +39,11 @@ export default function Landing_Page() {
       className="relative h-screen w-full mx-auto text-white flex flex-row items-center justify-center select-none"
     >
       {/* Physics layer - put below UI but give it pointer events */}
-      <div className="hidden lg:block absolute inset-0 z-10">
-        <RapierPhysics />
-      </div>
+      {isDesktop && (
+        <div className="absolute inset-0 z-10">
+          <RapierPhysics />
+        </div>
+      )}
       {/* Content above physics layer - Wrapper is pointer-events-none so we can click through empty space */}
       <div className="flex flex-col my-30 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 relative z-20 pointer-events-none">
         <motion.div

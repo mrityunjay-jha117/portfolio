@@ -1,9 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import GameCanvas from "../dashboard/canvas";
 
 export default function Game() {
   const navigate = useNavigate();
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  // Screen size detection for Game rendering
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Escape key handler
   useEffect(() => {
@@ -53,7 +64,8 @@ export default function Game() {
       </div>
 
       {/* Game Controls Info */}
-      <div className="fixed bottom-6 left-6 z-50 bg-black/70 backdrop-blur-md rounded-lg p-4 text-sm">
+      {isDesktop && (
+        <div className="fixed bottom-6 left-6 z-50 bg-black/70 backdrop-blur-md rounded-lg p-4 text-sm">
         <div className="text-white">
           <div className="font-semibold mb-2 text-red-400">🎮 Controls:</div>
           <div className="space-y-1 text-gray-300">
@@ -84,9 +96,11 @@ export default function Game() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Fullscreen Toggle */}
-      <button
+      {isDesktop && (
+        <button
         onClick={() => {
           if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen();
@@ -111,8 +125,23 @@ export default function Game() {
           />
         </svg>
       </button>
+      )}
 
-      <GameCanvas />
+      {isDesktop ? (
+        <GameCanvas />
+      ) : (
+        <div className="flex-1 flex flex-col items-center justify-center h-screen px-6 text-center">
+          <div className="p-8 bg-gray-800/40 rounded-2xl border border-gray-700/50 backdrop-blur-md max-w-sm mx-auto">
+            <svg className="w-16 h-16 text-blue-400 mx-auto mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <h2 className="text-2xl font-bold text-white mb-3">Desktop Only</h2>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              This 3D experience requires a keyboard and a larger screen to play. Please switch to a desktop or laptop computer.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
