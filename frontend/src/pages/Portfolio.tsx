@@ -29,6 +29,17 @@ export default function Portfolio() {
   const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  // Screen size detection for conditional 3D rendering
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024); // lg breakpoint
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Scroll detection - listen to window scroll
   useEffect(() => {
@@ -258,17 +269,19 @@ export default function Portfolio() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
           <Third />
-          <div className="hidden lg:block absolute z-10 h-screen w-full">
-            <PortfolioSection
-              Scene={
-                <AnimatedModel
-                  gltfPath="/models/stylized_mustang.glb"
-                  // gltfPath="/models/seedhi_gaadi.glb"
-                  position={[15, -1, -13]}
-                />
-              }
-            />
-          </div>
+          {isDesktop && (
+            <div className="absolute z-10 h-screen w-full">
+              <PortfolioSection
+                Scene={
+                  <AnimatedModel
+                    gltfPath="/models/stylized_mustang.glb"
+                    // gltfPath="/models/seedhi_gaadi.glb"
+                    position={[15, -1, -13]}
+                  />
+                }
+              />
+            </div>
+          )}
         </motion.div>
 
         <motion.div
