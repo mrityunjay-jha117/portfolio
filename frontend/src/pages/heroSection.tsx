@@ -1,9 +1,7 @@
 import RapierPhysics from "./components/Three js components/ball animation/rapier";
 import { motion } from "framer-motion";
-import { HyperText } from "@/components/ui/hyper-text";
 import Text3DFlip from "@/components/ui/text-3d-flip";
 import { useState, useEffect } from "react";
-
 export default function Landing_Page() {
   const [isDesktop, setIsDesktop] = useState(true);
 
@@ -59,15 +57,12 @@ export default function Landing_Page() {
             variants={item}
             className="text-md sm:text-2xl md:text-3xl text-white font-black mb-3 sm:mb-4 lg:mb-6 text-left pointer-events-auto"
           >
-            <HyperText variants={item} duration={1000} delay={0}>
-              FULL STACK WEB DEVELOPER
-            </HyperText>
-
+            FULL STACK WEB DEVELOPER
             <Text3DFlip
               as="div"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-blue-400 font-black block mt-2 sm:mt-3"
-              textClassName="bg-gray-900 text-blue-400"
-              flipTextClassName="bg-gray-900 text-blue-400"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-blue-400 font-black  mt-2 sm:mt-3"
+              textClassName="text-blue-400"
+              flipTextClassName="text-blue-400"
               rotateDirection="top"
             >
               Mrityunjay Jha
@@ -89,13 +84,14 @@ export default function Landing_Page() {
           {/* Location with subtle entrance */}
           <motion.h2
             variants={item}
-            className="text-sm sm:text-base text-blue-400 md:text-lg font-medium sm:mb-8 lg:mb-10 text-left tracking-wider pointer-events-auto"
+            className="text-sm sm:text-base text-blue-400 md:text-lg font-medium sm:mb-4 text-left tracking-wider pointer-events-auto"
           >
             New Delhi , INDIA
           </motion.h2>
 
           {/* Buttons with improved layout and sizing + motion hover */}
           <div className="flex h-auto sm:h-10 flex-col sm:flex-row relative w-[85%] sm:w-4/5 mx-0 z-[100] justify-start items-start sm:items-center gap-3 sm:gap-6 mt-6 sm:mt-5 pointer-events-auto">
+            
             <motion.a
               variants={item}
               href="https://drive.google.com/file/d/1pszshrx1FGB3yUIYwUOMrDXJEaye1Mpl/view?usp=drive_link"
@@ -124,6 +120,7 @@ export default function Landing_Page() {
             >
               Contact Me
             </motion.button>
+            
           </div>
         </motion.div>
       </div>

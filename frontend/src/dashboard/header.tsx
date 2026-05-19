@@ -9,6 +9,7 @@ export default function Header() {
       const sections = [
         "home-section",
         "about_section",
+        "experience_section",
         "projects-section",
         "skills-section",
         "blog-section",
@@ -55,6 +56,7 @@ export default function Header() {
 
   const navItems = [
     { id: "about_section", label: "About" },
+    { id: "experience_section", label: "Experience" },
     { id: "projects-section", label: "Projects" },
     { id: "blog-section", label: "Blogs" },
     { id: "skills-section", label: "Skills" },
@@ -64,14 +66,14 @@ export default function Header() {
   return (
     <>
       {/* Desktop Header */}
-      <header className="hidden md:flex sm:mr-20 w-auto max-w-2xl bg-black/90 backdrop-blur-md border border-gray-800 h-12 lg:h-14 ml-auto items-center justify-center rounded-full px-4 lg:px-8 shadow-2xl z-[110] relative select-none">
+      <header className="hidden md:flex sm:mr-20 w-max px-20 py-5 bg-black/90 backdrop-blur-md border border-gray-800 h-10 lg:h-12 ml-auto items-center justify-center rounded-full  shadow-2xl z-[110] relative select-none">
         <nav className="w-full">
-          <ul className="flex items-center justify-center space-x-4 lg:space-x-8 text-white">
+          <ul className="flex items-center justify-center space-x-2 lg:space-x-4 text-white">
             {navItems.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => scrollToSection(item.id)}
-                  className={`relative px-3 py-2 text-sm lg:text-base font-medium transition-all duration-300 group cursor-pointer ${
+                  className={`relative px-3 py-2 text-xs  font-medium transition-all duration-300 group cursor-pointer ${
                     activeSection === item.id
                       ? "text-red-400"
                       : "hover:text-red-400"

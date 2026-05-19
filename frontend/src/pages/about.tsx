@@ -28,28 +28,6 @@ export default function About() {
             problems through code and competitive programming.
           </h2>
 
-          {/* Stats Section - Responsive Flex */}
-          <div className="flex flex-row flex-wrap items-center justify-start gap-6 sm:gap-8 lg:gap-12 mt-3 mb-4 sm:mb-6 w-full">
-            <div className="text-xl sm:text-2xl font-extrabold text-center">
-              3+ <br />
-              <span className="font-thin text-sm sm:text-base lg:text-lg">
-                projects built
-              </span>
-            </div>
-            <div className="text-xl sm:text-2xl font-extrabold text-center">
-              500+ <br />
-              <span className="font-thin text-sm sm:text-base lg:text-lg">
-                problems solved
-              </span>
-            </div>
-            <div className="text-xl sm:text-2xl font-extrabold text-center">
-              2 <br />
-              <span className="font-thin text-sm sm:text-base lg:text-lg">
-                internship done
-              </span>
-            </div>
-          </div>
-
           {/* Coding Profiles - Simple inline links (dark theme) */}
           <div className="flex z-20 flex-col sm:flex-row flex-wrap justify-start gap-4 sm:gap-6 items-start sm:items-center mt-6 w-full">
             <div className="text-sm sm:text-base text-white">
@@ -86,23 +64,21 @@ export default function About() {
                 </span>
               </span>
             </div>
-            <div className="text-sm sm:text-base text-orange-400">
-              <a
-                href="https://codolio.com/profile/silent_cartographer"
-                target="_blank"
-                rel="noopener noreferrer"
-                className=" hover:text-orange-400 font-semibold  cursor-pointer"
-              >
-                Codolio
-              </a>
-            </div>
+            
           </div>
         </div>
       </div>
 
       {/* Right side - Placeholder for 3D model/image */}
       <div className="hidden lg:block w-1/2 flex items-center justify-center mt-6 lg:mt-0">
-        <div className="text-center h-30 lg:h-50 bg-gray-800 rounded-2xl border border-gray-700" />
+        <div className="text-center h-30 lg:h-50 bg-gray-800 rounded-2xl border border-gray-700 relative flex items-end justify-center overflow-visible" >
+          {/* Wobbly jumping W key hint */}
+          <span
+            className="wobble-w absolute -top-1 left-1/2 text-5xl lg:text-9xl font-black text-blue-400 select-none pointer-events-none"
+          >
+            W
+          </span>
+        </div>
       </div>
     </div>
   );

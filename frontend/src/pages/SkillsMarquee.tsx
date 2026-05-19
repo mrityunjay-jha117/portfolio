@@ -165,6 +165,7 @@ export default function SkillsMarquee() {
 
   return (
     <div 
+      id="skills-section"
       className="relative flex w-full min-h-screen lg:h-screen py-20 lg:py-0 flex-col items-center justify-center overflow-hidden"
       style={{
         maskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
