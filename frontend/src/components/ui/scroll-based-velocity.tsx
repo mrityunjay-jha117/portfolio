@@ -149,9 +149,9 @@ function ScrollVelocityRowImpl({
     };
   }, [children, unitWidth]);
 
-  const x = useTransform([baseX, unitWidth], ([v, bw]) => {
-    const width = Number(bw) || 1;
-    const offset = Number(v) || 0;
+  const x = useTransform(() => {
+    const width = Number(unitWidth.get()) || 1;
+    const offset = Number(baseX.get()) || 0;
     return `${-wrap(0, width, offset)}px`;
   });
 

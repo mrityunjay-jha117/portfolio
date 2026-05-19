@@ -3,27 +3,27 @@ export default function Sidenav() {
     {
       href: "https://www.linkedin.com/in/mrityunjay-jha-7b0436303/",
       label: "LinkedIn",
-      src: "icons/sidebar_icons/linkedin.png",
+      src: "icons_webp/sidebar_icons/linkedin.webp",
     },
     {
       href: "https://x.com/Mrityunjay2027",
       label: "Twitter",
-      src: "icons/sidebar_icons/twitter.png",
+      src: "icons_webp/sidebar_icons/twitter.webp",
     },
     {
       href: "https://github.com/mrityunjay-jha117",
       label: "Github",
-      src: "icons/sidebar_icons/github2.png",
+      src: "icons_webp/sidebar_icons/github2.webp",
     },
     {
       href: "https://leetcode.com/u/idk_the_answer/",
       label: "LeetCode",
-      src: "icons/sidebar_icons/leetcode.png",
+      src: "icons_webp/sidebar_icons/leetcode.webp",
     },
     {
       href: "https://codeforces.com/profile/silent_cartographer",
       label: "Codeforces",
-      src: "icons/sidebar_icons/codeforces.png",
+      src: "icons_webp/sidebar_icons/codeforces.webp",
     },
   ];
 
