@@ -1,34 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import First from "./heroSection";
-import Second from "./Projects";
-import Third from "./about";
-import Experience from "./experience";
-import Sixth from "./contactMe";
 import Header from "../dashboard/header";
 import Sidenav from "../dashboard/sidenav";
-import BlogPage from "./BlogPage";
-import SkillsMarquee from "./SkillsMarquee";
+
+import First from "./heroSection";
+import Fourth from "./Projects";
+import Second from "./about";
+import Third from "./experience";
+import Fifth from "./BlogPage";
+import Sixth from "./SkillsMarquee";
+import Seventh from "./contactMe";
+
 import PortfolioSection from "./components/Three js components/car_model_animation/canvas_setter";
 import AnimatedModel from "./components/Three js components/car_model_animation/animated_model";
-import { SmoothCursor } from "@/components/ui/smooth-cursor";
-interface SpringConfig {
-  damping: number; // Controls how quickly the animation settles
-  stiffness: number; // Controls the spring stiffness
-  mass: number; // Controls the virtual mass of the animated object
-  restDelta: number; // Controls the threshold at which animation is considered complete
-}
+
 export default function Portfolio() {
-  const defaultSpringConfig: SpringConfig = {
-    damping: 45,
-    stiffness: 400,
-    mass: 1,
-    restDelta: 0.001,
-  };
   const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
 
   // Screen size detection for conditional 3D rendering
@@ -53,23 +42,19 @@ export default function Portfolio() {
 
   // Modular and device-optimized animation variants
   const sectionVariants = {
-    hidden: isDesktop 
+    hidden: isDesktop
       ? { opacity: 0, y: 60 } // Desktop: Standard slide up
       : { opacity: 0, scale: 0.95, y: 20 }, // Mobile: Smooth zoom-in with minor slide (better for mobile GPU)
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       scale: 1,
-      transition: { 
-        duration: isDesktop ? 0.7 : 0.6, 
+      transition: {
+        duration: isDesktop ? 0.7 : 0.6,
         ease: "easeOut" as const,
-        delay: isDesktop ? 0.1 : 0 // No delay on mobile to feel more responsive
-      }
-    }
-  };
-
-  const openGame = () => {
-    navigate("/game");
+        delay: isDesktop ? 0.1 : 0, // No delay on mobile to feel more responsive
+      },
+    },
   };
 
   const scrollToTop = () => {
@@ -82,7 +67,6 @@ export default function Portfolio() {
   return (
     <div className="relative bg-gray-900 w-full min-h-screen">
       {/* Desktop Cursor and Sidenav - Hidden on mobile */}
-      {isDesktop && <SmoothCursor springConfig={defaultSpringConfig} />}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
@@ -102,96 +86,6 @@ export default function Portfolio() {
         <Header />
       </motion.div>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {showMobileMenu && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[138] bg-black bg-opacity-50 lg:hidden"
-            onClick={() => setShowMobileMenu(false)}
-          >
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 20 }}
-              className="fixed right-0 top-0 h-full w-80 bg-gray-900 border-l border-gray-700 p-6"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-white text-xl font-bold">Connect</h2>
-                <button
-                  onClick={() => setShowMobileMenu(false)}
-                  className="text-white hover:text-red-400 transition-colors"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Mobile Social Links */}
-              <div className="space-y-4">
-                {[
-                  {
-                    href: "https://www.linkedin.com/in/mrityunjay-jha-7b0436303/",
-                    label: "LinkedIn",
-                    src: "icons/sidebar_icons/linkedin.png",
-                  },
-                  {
-                    href: "https://x.com/Mrityunjay2027",
-                    label: "Twitter",
-                    src: "icons/sidebar_icons/twitter.png",
-                  },
-                  {
-                    href: "https://github.com/mrityunjay-jha117",
-                    label: "Github",
-                    src: "icons/sidebar_icons/github2.png",
-                  },
-                  {
-                    href: "https://leetcode.com/u/idk_the_answer/",
-                    label: "LeetCode",
-                    src: "icons/sidebar_icons/leetcode.png",
-                  },
-                  {
-                    href: "https://codeforces.com/profile/silent_cartographer",
-                    label: "Codeforces",
-                    src: "icons/sidebar_icons/codeforces.png",
-                  },
-                ].map(({ href, label, src }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-800 transition-colors"
-                    onClick={() => setShowMobileMenu(false)}
-                  >
-                    <img
-                      src={src}
-                      alt={label}
-                      className="w-8 h-8 object-contain"
-                    />
-                    <span className="text-white font-medium">{label}</span>
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
       {/* Floating Action Buttons */}
       <motion.div
         initial={{ opacity: 0, x: 50 }}
@@ -200,30 +94,6 @@ export default function Portfolio() {
         className="fixed bottom-6 sm:bottom-10 z-[105] w-15 h-auto flex flex-col gap-3 sm:gap-5 items-center justify-center right-4 sm:right-10"
         layout
       >
-        {/* Mobile Menu Button - Only on mobile */}
-        <motion.button
-          layout
-          onClick={() => setShowMobileMenu(true)}
-          className="lg:hidden w-12 h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-purple-500 hover:bg-purple-600 transition-colors cursor-pointer shadow-lg z-[105] relative"
-          title="Social Links"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-            />
-          </svg>
-        </motion.button>
-
         {/* Scroll to Top Button */}
         <AnimatePresence mode="wait">
           {showScrollTop && (
@@ -249,27 +119,24 @@ export default function Portfolio() {
           )}
         </AnimatePresence>
 
-        {/* Game Button */}
+        {/* Game Button - Desktop only */}
         <motion.button
           layout
-          transition={{
-            layout: {
-              type: "spring",
-              stiffness: 300,
-              damping: 25,
-            },
-          }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={openGame}
-          className="w-12 hidden sm:block h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-white hover:bg-blue-400 transition-colors cursor-pointer shadow-lg z-[105] relative"
+          onClick={() => navigate("/game")}
+          className="hidden sm:flex w-12 h-12 sm:w-15 sm:h-15 rounded-full text-gray-900 items-center justify-center bg-white hover:bg-blue-400 hover:text-white transition-colors cursor-pointer shadow-lg z-[105] relative"
           title="Open 3D Game"
-        />
+        >
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21 6H3a2 2 0 00-2 2v8a2 2 0 002 2h18a2 2 0 002-2V8a2 2 0 00-2-2zm-10 7H9v2H7v-2H5v-2h2V9h2v2h2v2zm4.5 2a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm3-3a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" />
+          </svg>
+        </motion.button>
       </motion.div>
 
-      <div className="w-full flex flex-col gap-0   ">
+      <div className="w-full flex flex-col gap-0">
         <motion.div
-          className="snap-start h-auto lg:min-h-screen"
+          className="h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -279,20 +146,19 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="relative snap-start flex flex-row h-auto lg:min-h-screen"
+          className="relative flex flex-row h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
-          <Third />
+          <Second />
           {isDesktop && (
             <div className="absolute z-10 h-screen w-full">
               <PortfolioSection
                 Scene={
                   <AnimatedModel
                     gltfPath="/models/stylized_mustang.glb"
-                    // gltfPath="/models/seedhi_gaadi.glb"
                     position={[15, -1, -13]}
                   />
                 }
@@ -302,53 +168,53 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div
-          className="snap-start h-auto lg:min-h-screen"
+          className="  h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
-          <Experience />
+          <Third />
         </motion.div>
 
         <motion.div
-          className="snap-start h-auto lg:min-h-screen"
+          className="  h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
-          <Second />
+          <Fourth />
         </motion.div>
 
         <motion.div
-          className="snap-start h-auto lg:min-h-screen"
+          className="  h-auto lg:min-h-screen"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
-          <BlogPage />
+          <Fifth />
         </motion.div>
 
         <motion.div
-          className="snap-start h-auto lg:min-h-screen w-full"
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
-        >
-          <SkillsMarquee />
-        </motion.div>
-
-        <motion.div
-          className="snap-start h-auto lg:min-h-screen"
+          className="  h-auto lg:min-h-screen w-full"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
         >
           <Sixth />
+        </motion.div>
+
+        <motion.div
+          className="  h-auto lg:min-h-screen"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isDesktop ? "-100px" : "-50px" }}
+        >
+          <Seventh />
         </motion.div>
       </div>
     </div>

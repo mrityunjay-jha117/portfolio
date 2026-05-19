@@ -14,8 +14,8 @@ export default function ContactMe() {
             <Text3DFlip
               as="h1"
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-blue-400"
-              textClassName="bg-gray-900 text-blue-400"
-              flipTextClassName="bg-gray-900 text-blue-400"
+              textClassName="text-blue-400"
+              flipTextClassName="text-blue-400"
               rotateDirection="top"
             >
               Let's CONNECT

@@ -1,7 +1,5 @@
 @import "tailwindcss";
-* {
-  cursor: none !important;
-}
+
 html, body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -118,4 +116,20 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 .blur-out-expand-fwd {
   -webkit-animation: blur-out-expand-fwd 4.5s linear forwards;
   animation: blur-out-expand-fwd 4.5s linear forwards;
+}
+
+/* Wobble-jump hint for WASD control key */
+@keyframes wobble-jump {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-14px) rotate(-3deg);
+  }
+}
+
+.wobble-w {
+  animation: wobble-jump 1.4s ease-in-out infinite;
+  text-shadow: 0 0 16px rgba(96, 165, 250, 0.4);
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
 }
