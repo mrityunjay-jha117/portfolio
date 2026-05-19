@@ -27,7 +27,7 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
       {/* Background Image - Full Card */}
       <div className="absolute inset-0">
         <img
-          src="/icons/thumbnails/thumb.jpg"
+          src="/icons_webp/thumbnails/thumb.webp"
           className="w-full h-full object-cover"
         />
         {/* Light overlay for better text visibility */}
