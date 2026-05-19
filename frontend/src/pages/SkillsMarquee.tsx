@@ -17,123 +17,123 @@ export default function SkillsMarquee() {
     // Canonical skill dataset provided by user
     const list: Skill[] = [
       // Languages
-      { name: "C", icon: "/icons/c.png", category: "Languages" },
-      { name: "C++", icon: "/icons/c++.png", category: "Languages" },
-      { name: "Python", icon: "/icons/python.png", category: "Languages" },
+      { name: "C", icon: "/icons_webp/c.webp", category: "Languages" },
+      { name: "C++", icon: "/icons_webp/c++.webp", category: "Languages" },
+      { name: "Python", icon: "/icons_webp/python.webp", category: "Languages" },
       {
         name: "JavaScript",
-        icon: "/icons/javascript.png",
+        icon: "/icons_webp/javascript.webp",
         category: "Languages",
       },
       {
         name: "TypeScript",
-        icon: "/icons/typescript.png",
+        icon: "/icons_webp/typescript.webp",
         category: "Languages",
       },
-      { name: "HTML", icon: "/icons/html.png", category: "Languages" },
-      { name: "XML", icon: "/icons/xml.png", category: "Languages" },
-      { name: "CSS", icon: "/icons/css-3.png", category: "Languages" },
+      { name: "HTML", icon: "/icons_webp/html.webp", category: "Languages" },
+      { name: "XML", icon: "/icons_webp/xml.webp", category: "Languages" },
+      { name: "CSS", icon: "/icons_webp/css-3.webp", category: "Languages" },
 
       // Frontend
-      { name: "React.js", icon: "/icons/react.png", category: "Frontend" },
-      { name: "Next.js", icon: "/icons/nextjs.png", category: "Frontend" },
+      { name: "React.js", icon: "/icons_webp/react.webp", category: "Frontend" },
+      { name: "Next.js", icon: "/icons_webp/nextjs.webp", category: "Frontend" },
       {
         name: "Tailwind CSS",
-        icon: "/icons/tailwind.png",
+        icon: "/icons_webp/tailwind.webp",
         category: "Frontend",
       },
-      { name: "Recoil.js", icon: "/icons/recoil.png", category: "Frontend" },
-      { name: "Redux Toolkit", icon: "/icons/redux.png", category: "Frontend" },
+      { name: "Recoil.js", icon: "/icons_webp/recoil.webp", category: "Frontend" },
+      { name: "Redux Toolkit", icon: "/icons_webp/redux.webp", category: "Frontend" },
       {
         name: "Framer Motion",
-        icon: "/icons/framer-motion.svg",
+        icon: "/icons_webp/framer-motion.webp",
         category: "Frontend",
       },
-      { name: "WebRTC", icon: "/icons/webrtc.svg", category: "Frontend" },
+      { name: "WebRTC", icon: "/icons_webp/webrtc.webp", category: "Frontend" },
 
       // Backend
-      { name: "Node.js", icon: "/icons/node-js.svg", category: "Backend" },
-      { name: "Hono", icon: "/icons/hono.webp", category: "Backend" },
-      { name: "JWT", icon: "/icons/jwt.webp", category: "Backend" },
-      { name: "OAuth 2.0", icon: "/icons/oauth.svg", category: "Backend" },
-      { name: "WebSockets", icon: "/icons/websocket.svg", category: "Backend" },
-      { name: "Socket.IO", icon: "/icons/socket-io.svg", category: "Backend" },
-      { name: "NGINX", icon: "/icons/nginx.svg", category: "Backend" },
-      { name: "Redis", icon: "/icons/redis.svg", category: "Backend" },
+      { name: "Node.js", icon: "/icons_webp/node-js.webp", category: "Backend" },
+      { name: "Hono", icon: "/icons_webp/hono.webp", category: "Backend" },
+      { name: "JWT", icon: "/icons_webp/jwt.webp", category: "Backend" },
+      { name: "OAuth 2.0", icon: "/icons_webp/oauth.webp", category: "Backend" },
+      { name: "WebSockets", icon: "/icons_webp/websocket.webp", category: "Backend" },
+      { name: "Socket.IO", icon: "/icons_webp/socket-io.webp", category: "Backend" },
+      { name: "NGINX", icon: "/icons_webp/nginx.webp", category: "Backend" },
+      { name: "Redis", icon: "/icons_webp/redis.webp", category: "Backend" },
 
       // Databases & ORM
       {
         name: "PostgreSQL",
-        icon: "/icons/postgresql.svg",
+        icon: "/icons_webp/postgresql.webp",
         category: "Databases & ORM",
       },
       {
         name: "MongoDB",
-        icon: "/icons/mongo.svg",
+        icon: "/icons_webp/mongo.webp",
         category: "Databases & ORM",
       },
       {
         name: "MySQL",
-        icon: "/icons/mysql-logo-pure.svg",
+        icon: "/icons_webp/mysql-logo-pure.webp",
         category: "Databases & ORM",
       },
       {
         name: "Prisma ORM",
-        icon: "/icons/prisma-3.svg",
+        icon: "/icons_webp/prisma-3.webp",
         category: "Databases & ORM",
       },
 
       // 3D & Interactive
       {
         name: "Three.js",
-        icon: "/icons/threejs-1.svg",
+        icon: "/icons_webp/threejs-1.webp",
         category: "3D & Interactive",
       },
       {
         name: "Gsap",
-        icon: "/icons/gsap-greensock.svg",
+        icon: "/icons_webp/gsap-greensock.webp",
         category: "3D & Interactive",
       },
       {
         name: "Blender",
-        icon: "/icons/blender-2.svg",
+        icon: "/icons_webp/blender-2.webp",
         category: "3D & Interactive",
       },
       {
         name: "Figma",
-        icon: "/icons/figma-icon.svg",
+        icon: "/icons_webp/figma-icon.webp",
         category: "3D & Interactive",
       },
 
       // DevOps & Deployment
       {
         name: "GitHub",
-        icon: "/icons/github-icon-1.svg",
+        icon: "/icons_webp/github-icon-1.webp",
         category: "DevOps & Deployment",
       },
       {
         name: "Git",
-        icon: "/icons/git-icon.svg",
+        icon: "/icons_webp/git-icon.webp",
         category: "DevOps & Deployment",
       },
       {
         name: "Docker",
-        icon: "/icons/docker-4.svg",
+        icon: "/icons_webp/docker-4.webp",
         category: "DevOps & Deployment",
       },
       {
         name: "Vercel",
-        icon: "/icons/v0-1.svg",
+        icon: "/icons_webp/v0-1.webp",
         category: "DevOps & Deployment",
       },
       {
         name: "Cloudflare Workers",
-        icon: "/icons/cloudflare-1.svg",
+        icon: "/icons_webp/cloudflare-1.webp",
         category: "DevOps & Deployment",
       },
       {
         name: "AWS",
-        icon: "/icons/aws-2.svg",
+        icon: "/icons_webp/aws-2.webp",
         category: "DevOps & Deployment",
       },
     ];
