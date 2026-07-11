@@ -70,10 +70,31 @@ module.exports = async (req, res) => {
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.error("Transporter verify error", error);
+          reject(error);
+        } else {
+          resolve(success);
+        }
+      });
+    });
+
+    const info = await new Promise((resolve, reject) => {
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.error("sendMail error", err);
+          reject(err);
+        } else {
+          resolve(info);
+        }
+      });
+    });
+
     return res.status(200).json({ ok: true, info });
   } catch (err) {
-    console.error("sendMail error", err);
+    console.error("send error", err);
     return res.status(500).json({ error: "send_failed", message: String(err) });
   }
 };
